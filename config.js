@@ -19,8 +19,8 @@ window.SITE_CONFIG = {
   email: '',
 
   // Chaves públicas do Supabase para ativar o agendamento. Nunca use service_role aqui.
-  supabaseUrl: '',
-  supabaseAnonKey: '',
+  supabaseUrl: 'https://gvwqpkzgblrlmugyvzmc.supabase.co',
+  supabaseAnonKey: 'sb_publishable_t1FjJvqrp1Rl4AdCyY0I6g_p-8iTtbP',
 
   modalidades: ['Presencial', 'Online'],
   localizacao: 'A localização detalhada é informada durante o agendamento.',
