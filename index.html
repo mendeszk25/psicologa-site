@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Silvana Delacio — Terapia Integrativa e TRG. Atendimento presencial em espaço particular e atendimento online, mediante agendamento.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Silvana Delacio | Terapia Integrativa">
+  <meta property="og:description" content="Um espaço de escuta, acolhimento e cuidado, presencial e online.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Silvana Delacio | Terapia Integrativa">
+  <meta name="twitter:description" content="Um espaço de escuta, acolhimento e cuidado, presencial e online.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#f7f3eb">
+  <title>Silvana Delacio | Terapia Integrativa</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="assets/hero-approved-visual.webp" media="(min-width: 1200px)" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/silvana-hero.webp" media="(max-width: 1199px)" fetchpriority="high">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/booking.css">
+  <script src="config.js" defer></script>
+  <script src="main.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/supabase-client.js" defer></script>
+  <script src="js/booking.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Silvana Delacio",
+    "description": "Terapeuta Integrativa com formação pelo IBTRG/CITRG, professora com especialização em Educação e Capacitação Pedagógica pela UFRPE e arte-educadora em projetos sociais do MUCA.",
+    "sameAs": ["https://www.instagram.com/terapeutasilvanadelacio/"]
+  }
+  </script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="site-header" id="topo">
+  <div class="site-shell header-inner">
+    <a class="brand" href="#inicio" aria-label="Silvana Delacio — início">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none"><path d="M24 42V16"/><path d="M24 25c-8-1-12-7-12-14 8 0 14 5 14 13"/><path d="M24 31c7-1 12-6 12-13-8 0-13 5-14 12"/></svg>
+      </span>
+      <span class="brand-copy">
+        <span class="brand-name" data-field="nome">Silvana Delacio</span>
+        <span class="brand-role"><span data-field="tituloProfissional">Terapeuta Integrativa</span> <b>•</b> TRG</span>
+      </span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+      <span>Menu</span><i aria-hidden="true"></i>
+    </button>
+
+    <nav id="menu-principal" class="main-nav" aria-label="Navegação principal">
+      <a href="#inicio">Início</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#temas">Terapia</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#atendimento">Espaço</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <a class="button button-header" href="#contato" data-booking-open data-track="booking_header">
+      <span>Agendar uma conversa</span>
+      <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M6 2v3M14 2v3M3 7h14M4 4h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
+    </a>
+  </div>
+</header>
+
+<main id="conteudo">
+  <section class="hero" id="inicio">
+    <img class="hero-botanical hero-botanical-a" src="assets/botanical-branch.svg" alt="" aria-hidden="true">
+    <img class="hero-botanical hero-botanical-b" src="assets/botanical-branch.svg" alt="" aria-hidden="true">
+    <img class="hero-botanical hero-botanical-c" src="assets/botanical-branch.svg" alt="" aria-hidden="true">
+
+    <div class="site-shell hero-grid">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">Saúde emocional para uma vida mais plena</p>
+        <h1>
+          <span>Um espaço de</span>
+          <span>escuta, acolhimento</span>
+          <span>e cuidado</span>
+          <span class="hero-accent"><em>no seu tempo.</em></span>
+        </h1>
+        <p class="hero-intro">Terapia Integrativa e TRG, presencial e online, para você compreender melhor o que está vivendo e encontrar caminhos com mais clareza, equilíbrio e sentido.</p>
+
+        <div class="hero-actions">
+          <a class="button hero-primary" href="#contato" data-booking-open data-track="booking_hero">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M6 2v3M14 2v3M3 7h14M4 4h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
+            <span>Agendar uma conversa</span>
+          </a>
+          <a class="text-action" href="#sobre" data-track="learn_more_hero">
+            <span class="text-action-icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="m8 6 6 4-6 4V6Z"/></svg>
+            </span>
+            Conheça meu trabalho
+          </a>
+        </div>
+
+        <p class="hero-service">Atendimento presencial em espaço particular e online, mediante agendamento.</p>
+      </div>
+
+      <div class="hero-visual" data-reveal>
+        <div class="portrait-frame">
+          <picture class="hero-portrait-picture">
+            <source media="(min-width: 1200px)" srcset="assets/hero-approved-visual.webp">
+            <img src="assets/silvana-hero.webp" alt="Retrato de Silvana Delacio" width="1122" height="1402" fetchpriority="high" decoding="async">
+          </picture>
+        </div>
+        <p class="sr-only">Escuta, presença e respeito pela sua história. — Silvana Delacio</p>
+        <aside class="hero-quote-card">
+          <p>Escuta, presença e respeito pela sua história.</p>
+          <i aria-hidden="true"></i>
+          <span>Silvana Delacio</span>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits" aria-label="Pilares do acompanhamento">
+    <div class="site-shell benefits-grid">
+      <article data-reveal>
+        <span class="benefit-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M16 27V12"/><path d="M16 18c-6-.7-9-5-9-10 6 0 10 4 10 9"/><path d="M16 22c5-.5 9-4.4 9-9-6 0-10 3.8-10 8.3"/></svg>
+        </span>
+        <div><h2>Mais equilíbrio</h2><p>Um espaço para olhar com mais calma para o que está acontecendo.</p></div>
+      </article>
+      <article data-reveal>
+        <span class="benefit-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M16 25c7-4 10-9 9-15-5 0-8 2-9 6-1-4-4-6-9-6-1 6 2 11 9 15Z"/><path d="M16 16V8"/></svg>
+        </span>
+        <div><h2>Mais consciência</h2><p>Para reconhecer necessidades, limites e escolhas com mais clareza.</p></div>
+      </article>
+      <article data-reveal>
+        <span class="benefit-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M16 26S5 19.6 5 11.8C5 8.6 7.5 6 10.6 6c2.3 0 4.2 1.3 5.4 3.1C17.2 7.3 19.1 6 21.4 6 24.5 6 27 8.6 27 11.8 27 19.6 16 26 16 26Z"/></svg>
+        </span>
+        <div><h2>Mais acolhimento</h2><p>Uma conversa sem pressa, conduzida com atenção à sua experiência.</p></div>
+      </article>
+      <article data-reveal>
+        <span class="benefit-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="5"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M7 7l3 3M22 22l3 3M25 7l-3 3M10 22l-3 3"/></svg>
+        </span>
+        <div><h2>Mais presença</h2><p>Para se perceber com mais atenção no ritmo da vida cotidiana.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="about section" id="sobre">
+    <div class="site-shell about-grid">
+      <div class="about-copy" data-reveal>
+        <p class="eyebrow">Sobre mim</p>
+        <h2>Uma trajetória dedicada ao ser humano</h2>
+        <p class="about-lead" data-field="apresentacao">Professora com especialização em Educação e Capacitação Pedagógica pela UFRPE, Terapeuta Integrativa com formação pelo IBTRG/CITRG e arte-educadora em projetos sociais do MUCA.</p>
+        <p data-field="conducao">Sua trajetória reúne educação, arte-educação e terapia integrativa. Hoje, esse percurso se traduz em uma condução atenta à história, ao momento e às necessidades de cada pessoa.</p>
+        <a class="outline-link" href="#como-funciona">Como funciona o acompanhamento <span aria-hidden="true">→</span></a>
+      </div>
+
+      <figure class="about-photo" data-reveal>
+        <img src="assets/silvana-arte-educacao.webp" alt="Silvana Delacio em atividade de arte-educação" width="900" height="1127" loading="lazy" decoding="async">
+      </figure>
+
+      <aside class="about-aside" data-reveal>
+        <span class="mini-leaf" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><path d="M23 43V17"/><path d="M23 27c-8-1-12-7-12-14 8 0 14 5 14 13"/><path d="M23 32c7-1 12-6 12-13-8 0-13 5-14 12"/></svg>
+        </span>
+        <p>Educação, escuta e sensibilidade atravessam uma trajetória construída junto às pessoas.</p>
+        <span class="aside-rule" aria-hidden="true"></span>
+        <small>Silvana Delacio</small>
+      </aside>
+    </div>
+
+    <div class="site-shell approach" data-reveal>
+      <div>
+        <p class="eyebrow">Terapia Integrativa • TRG</p>
+        <h3>Você não precisa conhecer a abordagem antes de chegar.</h3>
+      </div>
+      <p>O primeiro contato também serve para entender o que você está vivendo, esclarecer dúvidas sobre a forma de trabalho e conversar sobre as possibilidades de acompanhamento. A condução é explicada de maneira simples, sem exigir que você chegue com respostas prontas.</p>
+    </div>
+  </section>
+
+  <section class="topics section" id="temas">
+    <div class="site-shell">
+      <div class="section-head topics-head" data-reveal>
+        <div>
+          <p class="eyebrow">Temas que podem chegar</p>
+          <h2>Questões reais, com um olhar integrado</h2>
+        </div>
+        <p>Cada pessoa chega com uma história diferente. Estes são alguns temas que podem aparecer ao longo do acompanhamento.</p>
+      </div>
+
+      <div class="topics-grid" aria-label="Exemplos de temas trabalhados">
+        <article data-reveal>
+          <span aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M14 7c-4 0-7 3-7 7 0 1 .2 2 .7 3A6 6 0 0 0 12 28h2V7ZM22 7c4 0 7 3 7 7 0 1-.2 2-.7 3A6 6 0 0 1 24 28h-2V7ZM14 12h-3M14 18h-4M14 24h-3M22 12h3M22 18h4M22 24h3"/></svg></span>
+          <h3>Ansiedade e estresse</h3>
+        </article>
+        <article data-reveal>
+          <span aria-hidden="true"><svg viewBox="0 0 36 36"><circle cx="13" cy="12" r="4"/><circle cx="24" cy="14" r="3"/><path d="M6 28c0-6 3-9 7-9s7 3 7 9M21 28c0-4 2-7 5-7 2.6 0 4 1.7 4 5"/></svg></span>
+          <h3>Relacionamentos e vida afetiva</h3>
+        </article>
+        <article data-reveal>
+          <span aria-hidden="true"><svg viewBox="0 0 36 36"><circle cx="18" cy="12" r="5"/><path d="M9 30c0-7 3.5-11 9-11s9 4 9 11"/></svg></span>
+          <h3>Autoestima e autoconhecimento</h3>
+        </article>
+        <article data-reveal>
+          <span aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M18 30V16"/><path d="M18 21c-7-1-10-5-10-11 7 0 11 4 11 10"/><path d="M18 24c6-.6 10-4.5 10-10-6 0-10 4-10 9"/></svg></span>
+          <h3>Mudanças e novos ciclos</h3>
+        </article>
+        <article data-reveal>
+          <span aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M10 23a7 7 0 0 1 2-13 8 8 0 0 1 15 3 6 6 0 0 1-1 12H11"/><path d="M14 28v3M21 28v3"/></svg></span>
+          <h3>Sobrecarga emocional</h3>
+        </article>
+        <article data-reveal>
+          <span aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M18 30S7 23 7 15c0-3.4 2.7-6 6-6 2.2 0 4 1.2 5 3 1-1.8 2.8-3 5-3 3.3 0 6 2.6 6 6 0 8-11 15-11 15Z"/></svg></span>
+          <h3>Luto e perdas</h3>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="process section" id="como-funciona">
+    <div class="site-shell">
+      <div class="section-head process-head" data-reveal>
+        <div>
+          <p class="eyebrow">Como funciona</p>
+          <h2>Um processo simples e acolhedor</h2>
+        </div>
+        <p>O caminho começa com uma conversa. A partir dela, os próximos passos são combinados de forma clara.</p>
+      </div>
+
+      <ol class="timeline">
+        <li data-reveal>
+          <div class="timeline-marker"><span>01</span></div>
+          <div class="timeline-copy"><h3>Primeiro contato</h3><p>Você entra em contato para conversar sobre sua demanda e esclarecer dúvidas iniciais.</p></div>
+        </li>
+        <li data-reveal>
+          <div class="timeline-marker"><span>02</span></div>
+          <div class="timeline-copy"><h3>Escuta e alinhamento</h3><p>O momento atual, suas necessidades e as possibilidades de acompanhamento são conversados com calma.</p></div>
+        </li>
+        <li data-reveal>
+          <div class="timeline-marker"><span>03</span></div>
+          <div class="timeline-copy"><h3>Início do processo</h3><p>Silvana explica sua forma de condução e combina com você os próximos encontros.</p></div>
+        </li>
+        <li data-reveal>
+          <div class="timeline-marker"><span>04</span></div>
+          <div class="timeline-copy"><h3>Acompanhamento</h3><p>Os encontros seguem respeitando seu momento e os temas que surgirem ao longo do percurso.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="care section" id="atendimento">
+    <div class="site-shell">
+      <div class="section-head care-head" data-reveal>
+        <div>
+          <p class="eyebrow">Atendimento</p>
+          <h2>Presencial ou online,<br>sempre com o mesmo cuidado.</h2>
+        </div>
+        <p>Escolha a modalidade que fizer mais sentido para sua rotina. Os detalhes são combinados durante o agendamento.</p>
+      </div>
+
+      <div class="care-grid">
+        <article class="care-card" data-reveal>
+          <figure>
+            <img src="assets/ambiente-presencial.webp" alt="Ambiente reservado com poltrona, mesa lateral e iluminação suave" width="900" height="700" loading="lazy" decoding="async">
+          </figure>
+          <div class="care-card-copy">
+            <div class="care-card-title">
+              <span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.4 7-12a7 7 0 1 0-14 0c0 6.6 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+              <div><p class="eyebrow">Presencial</p><h3>Atendimento presencial</h3></div>
+            </div>
+            <p>Os encontros acontecem em um espaço particular, pensado para oferecer privacidade, conforto e tranquilidade.</p>
+            <p class="fine-print" data-field="localizacao">A localização detalhada é informada durante o agendamento.</p>
+            <a class="outline-link" href="#contato">Saber mais <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+        <article class="care-card" data-reveal>
+          <figure>
+            <img src="assets/ambiente-online.webp" alt="Notebook sobre mesa em ambiente tranquilo para atendimento online" width="900" height="700" loading="lazy" decoding="async">
+          </figure>
+          <div class="care-card-copy">
+            <div class="care-card-title">
+              <span aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 21h8M12 17v4"/></svg></span>
+              <div><p class="eyebrow">Online</p><h3>Atendimento online</h3></div>
+            </div>
+            <p>O encontro acontece por videochamada, em horário reservado, com orientações de acesso combinadas no agendamento.</p>
+            <p class="fine-print">Uma opção para quem prefere realizar os encontros de onde estiver.</p>
+            <a class="outline-link" href="#contato">Saber mais <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section" id="faq">
+    <div class="site-shell faq-grid">
+      <div class="faq-intro" data-reveal>
+        <p class="eyebrow">Dúvidas frequentes</p>
+        <h2>Antes de começar, é natural ter perguntas.</h2>
+        <p>Se alguma dúvida não estiver aqui, você pode entrar em contato e conversar diretamente com Silvana.</p>
+        <a class="button button-soft" href="#contato" data-whatsapp data-track="contact_faq"><span>Falar com Silvana</span><span aria-hidden="true">→</span></a>
+        <div class="faq-leaf" aria-hidden="true">
+          <svg viewBox="0 0 150 170"><path d="M44 166c18-50 34-89 74-139"/><path d="M84 77c-24-1-43 9-55 28 23 5 43-1 58-20"/><path d="M103 53c-4-21 2-37 18-49 8 19 4 37-12 52"/><path d="M63 107c-20 1-36 11-46 29 20 3 37-3 49-21"/></svg>
+        </div>
+      </div>
+
+      <div class="faq-list" data-reveal>
+        <details>
+          <summary>O que é Terapia Integrativa / TRG?<span aria-hidden="true"></span></summary>
+          <p>Você não precisa conhecer a abordagem antes do primeiro contato. Silvana explica como conduz os encontros, esclarece dúvidas e conversa com você sobre as possibilidades de acompanhamento.</p>
+        </details>
+        <details>
+          <summary>Como funciona a primeira conversa?<span aria-hidden="true"></span></summary>
+          <p>É um momento inicial para falar sobre o que está acontecendo, entender sua demanda e esclarecer dúvidas antes de combinar os próximos passos.</p>
+        </details>
+        <details>
+          <summary>O atendimento é presencial ou online?<span aria-hidden="true"></span></summary>
+          <p>As duas modalidades estão disponíveis. Os detalhes do presencial e as orientações do online são combinados no agendamento.</p>
+        </details>
+        <details>
+          <summary>Qual a duração dos encontros?<span aria-hidden="true"></span></summary>
+          <p data-field="duracao">A duração é informada pela profissional durante o agendamento.</p>
+        </details>
+        <details>
+          <summary>Preciso chegar sabendo exatamente o que quero trabalhar?<span aria-hidden="true"></span></summary>
+          <p>Não. O primeiro contato também pode ajudar a organizar o que você está vivendo e a compreender melhor o que deseja conversar.</p>
+        </details>
+        <details>
+          <summary>Como faço para agendar?<span aria-hidden="true"></span></summary>
+          <p>Use “Agendar uma conversa” para escolher modalidade, data e horário entre as opções disponíveis. Se preferir tirar uma dúvida antes, use o contato direto no site.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" id="contato">
+    <div class="final-cta-leaf final-cta-leaf-a" aria-hidden="true"></div>
+    <div class="final-cta-leaf final-cta-leaf-b" aria-hidden="true"></div>
+    <div class="site-shell final-cta-inner" data-reveal>
+      <div>
+        <p class="eyebrow">Contato</p>
+        <h2>Vamos conversar?</h2>
+        <p>O primeiro passo pode ser apenas uma conversa para entender melhor sua necessidade e esclarecer suas dúvidas.</p>
+      </div>
+      <a class="button button-light" href="#contato" data-booking-open data-track="booking_final">
+        <span>Agendar uma conversa</span>
+        <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M6 2v3M14 2v3M3 7h14M4 4h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
+      </a>
+    </div>
+  </section>
+</main>
+
+
+<dialog class="booking-dialog" id="booking-dialog" aria-label="Agendamento com Silvana Delacio">
+  <div class="booking-panel">
+    <header class="booking-topbar">
+      <div class="booking-brand">
+        <strong>Silvana Delacio</strong>
+        <span>Agendamento</span>
+      </div>
+      <button class="booking-close" type="button" aria-label="Fechar agendamento">×</button>
+    </header>
+
+    <div class="booking-body">
+      <nav class="booking-progress" aria-label="Etapas do agendamento">
+        <ol>
+          <li class="is-active"><b>1</b><span>Modalidade</span></li>
+          <li><b>2</b><span>Data e horário</span></li>
+          <li><b>3</b><span>Seus dados</span></li>
+          <li><b>4</b><span>Confirmar</span></li>
+        </ol>
+      </nav>
+
+      <div class="booking-main">
+        <section class="booking-unavailable" hidden>
+          <p class="eyebrow">Agendamento</p>
+          <h2>Agenda online ainda não configurada.</h2>
+          <p>O sistema está pronto para ser conectado ao Supabase. Enquanto isso, você pode falar diretamente com Silvana.</p>
+          <a class="button" data-booking-fallback hidden>Falar com Silvana</a>
+        </section>
+
+        <section class="booking-step" data-booking-step="1">
+          <div class="booking-step-header">
+            <p class="eyebrow">Etapa 1</p>
+            <h2 tabindex="-1">Agende sua conversa</h2>
+            <p>Escolha a modalidade e encontre um horário confortável para você.</p>
+          </div>
+          <div class="booking-choice-grid">
+            <button class="booking-choice" type="button" data-modality="presencial" aria-pressed="false">
+              <span class="booking-choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V7l6-4 6 4v13M9 10h6M9 14h6"/></svg></span>
+              <span><strong>Presencial</strong><small>Encontro em espaço particular.</small></span>
+            </button>
+            <button class="booking-choice" type="button" data-modality="online" aria-pressed="false">
+              <span class="booking-choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 21h8M12 19v2"/></svg></span>
+              <span><strong>Online</strong><small>Atendimento por videochamada.</small></span>
+            </button>
+          </div>
+          <p class="booking-privacy-note">Nesta etapa você não precisa informar motivo do atendimento, diagnóstico ou qualquer dado clínico.</p>
+        </section>
+
+        <section class="booking-step" data-booking-step="2" hidden>
+          <div class="booking-step-header">
+            <p class="eyebrow">Etapa 2</p>
+            <h2 tabindex="-1">Escolha data e horário</h2>
+            <p>O calendário mostra somente dias que possuem pelo menos um horário disponível.</p>
+          </div>
+          <div class="booking-calendar-layout">
+            <div class="booking-calendar">
+              <div class="booking-calendar-head">
+                <strong data-calendar-month></strong>
+                <div class="booking-calendar-nav">
+                  <button class="booking-icon-button" type="button" data-calendar-prev aria-label="Mês anterior">←</button>
+                  <button class="booking-icon-button" type="button" data-calendar-next aria-label="Próximo mês">→</button>
+                </div>
+              </div>
+              <div class="booking-weekdays" aria-hidden="true"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span></div>
+              <div class="booking-days" data-calendar-days></div>
+            </div>
+            <aside class="booking-slots">
+              <h3>Horários</h3>
+              <p class="booking-slots-date" data-slots-date>Escolha um dia disponível.</p>
+              <div class="booking-slot-grid" data-slot-grid></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="booking-step" data-booking-step="3" hidden>
+          <div class="booking-step-header">
+            <p class="eyebrow">Etapa 3</p>
+            <h2 tabindex="-1">Seus dados</h2>
+            <p>Pedimos apenas as informações necessárias para identificar e confirmar o horário.</p>
+          </div>
+          <form class="booking-form" id="booking-client-form" novalidate>
+            <div class="booking-field">
+              <label for="booking-name">Nome</label>
+              <input id="booking-name" type="text" autocomplete="name" maxlength="120" aria-describedby="booking-name-error" required>
+              <span class="booking-field-error" id="booking-name-error"></span>
+            </div>
+            <div class="booking-field">
+              <label for="booking-phone">WhatsApp</label>
+              <input id="booking-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="DDD + número" aria-describedby="booking-phone-error" required>
+              <span class="booking-field-error" id="booking-phone-error"></span>
+            </div>
+            <div class="booking-field">
+              <label for="booking-email">E-mail <span aria-hidden="true">(opcional)</span></label>
+              <input id="booking-email" type="email" autocomplete="email" aria-describedby="booking-email-error">
+              <span class="booking-field-error" id="booking-email-error"></span>
+            </div>
+          </form>
+          <p class="booking-privacy-note">Esses dados são usados apenas para organizar o agendamento. O sistema não solicita informações clínicas.</p>
+        </section>
+
+        <section class="booking-step" data-booking-step="4" hidden>
+          <div class="booking-step-header">
+            <p class="eyebrow">Etapa 4</p>
+            <h2 tabindex="-1">Confira antes de confirmar</h2>
+            <p>Se precisar alterar a modalidade, data ou horário, use o botão “Voltar”.</p>
+          </div>
+          <dl class="booking-summary">
+            <div class="booking-summary-row"><dt>Modalidade</dt><dd data-summary-modality></dd></div>
+            <div class="booking-summary-row"><dt>Data</dt><dd data-summary-date></dd></div>
+            <div class="booking-summary-row"><dt>Horário</dt><dd data-summary-time></dd></div>
+            <div class="booking-summary-row"><dt>Nome</dt><dd data-summary-name></dd></div>
+            <div class="booking-summary-row"><dt>WhatsApp</dt><dd data-summary-phone></dd></div>
+            <div class="booking-summary-row" data-summary-email-row><dt>E-mail</dt><dd data-summary-email></dd></div>
+          </dl>
+        </section>
+
+        <section class="booking-success" hidden aria-live="polite">
+          <div class="booking-success-mark" aria-hidden="true">✓</div>
+          <p class="eyebrow">Recebido</p>
+          <h2>Horário solicitado com sucesso.</h2>
+          <p data-booking-success-details></p>
+          <p>O agendamento foi registrado como pendente até a confirmação da profissional.</p>
+          <div class="booking-success-actions">
+            <a class="button" href="#" data-booking-whatsapp hidden>Falar com Silvana no WhatsApp</a>
+            <button class="outline-link" type="button" data-booking-close>Fechar</button>
+          </div>
+        </section>
+
+        <p class="booking-status" role="status" aria-live="polite"></p>
+        <div class="booking-nav">
+          <button class="booking-back" type="button" data-booking-back hidden>← Voltar</button>
+          <button class="button" type="button" data-booking-next>Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="site-shell footer-inner">
+    <a class="brand brand-footer" href="#inicio" aria-label="Voltar ao início">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none"><path d="M24 42V16"/><path d="M24 25c-8-1-12-7-12-14 8 0 14 5 14 13"/><path d="M24 31c7-1 12-6 12-13-8 0-13 5-14 12"/></svg>
+      </span>
+      <span class="brand-copy"><span class="brand-name" data-field="nome">Silvana Delacio</span><span class="brand-role"><span data-field="tituloProfissional">Terapeuta Integrativa</span> <b>•</b> TRG</span></span>
+    </a>
+
+    <nav class="footer-nav" aria-label="Navegação do rodapé">
+      <a href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#temas">Terapia</a><a href="#como-funciona">Como funciona</a><a href="#atendimento">Espaço</a><a href="#faq">FAQ</a><a href="#contato">Contato</a>
+    </nav>
+
+    <div class="footer-meta">
+      <a class="social-link" data-contact="instagram" data-track="instagram_footer" href="https://www.instagram.com/terapeutasilvanadelacio/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Silvana Delacio">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="fill-dot"/></svg>
+      </a>
+      <a class="social-link" data-contact="whatsapp" data-track="whatsapp_footer" href="#contato" aria-label="WhatsApp de Silvana Delacio" hidden>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 11.6a8 8 0 0 1-11.8 7L4 20l1.4-4A8 8 0 1 1 20 11.6Z"/><path d="M8.3 7.8c.2-.4.4-.4.7-.4h.4c.1 0 .3.1.4.4l.8 1.9c.1.3 0 .5-.1.7l-.6.7c-.2.2-.1.4 0 .6.5.9 1.2 1.7 2.1 2.3.8.6 1.5.9 1.8 1 .2.1.4 0 .5-.2l.8-1c.2-.2.4-.3.7-.2l1.9.9c.3.1.5.2.5.4 0 .2 0 1.1-.6 1.7-.5.6-1.4.9-2.2.9-.6 0-1.5-.1-3.1-.8-1.8-.8-3.2-2-4.3-3.4-1.1-1.4-1.8-2.9-2-3.8-.2-.8 0-1.6.4-2.1.4-.5.9-.6 1.2-.6Z"/></svg>
+      </a>
+      <span>© <span data-year></span> Silvana Delacio<br>Todos os direitos reservados.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

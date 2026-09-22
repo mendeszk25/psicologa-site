@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#f7f3eb">
+  <title>Agenda | Silvana Delacio</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+  <script src="../config.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="../js/supabase-client.js" defer></script>
+  <script src="../js/admin.js" defer></script>
+</head>
+<body class="admin-page">
+  <header class="admin-topbar">
+    <div class="admin-shell admin-topbar-inner">
+      <a class="admin-brand" href="../index.html">Silvana Delacio<small>Agenda administrativa</small></a>
+      <button class="admin-button" type="button" data-admin-logout hidden>Sair</button>
+    </div>
+  </header>
+
+  <main class="admin-shell admin-main">
+    <section class="admin-login" data-admin-login>
+      <p class="eyebrow">Área restrita</p>
+      <h1>Entrar na agenda</h1>
+      <p>Use o e-mail administrativo configurado no Supabase.</p>
+      <form class="admin-form" data-admin-login-form>
+        <div class="admin-field"><label for="admin-email">E-mail</label><input id="admin-email" type="email" autocomplete="username" required></div>
+        <div class="admin-field"><label for="admin-password">Senha</label><input id="admin-password" type="password" autocomplete="current-password" required></div>
+        <button class="admin-button admin-button-primary" type="submit">Entrar</button>
+        <p class="admin-error" data-admin-login-error aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="admin-app" data-admin-app hidden>
+      <div class="admin-heading">
+        <div><p class="eyebrow">Agenda</p><h1>Atendimentos</h1></div>
+        <p data-admin-today></p>
+      </div>
+
+      <div class="admin-stats">
+        <article class="admin-stat"><strong data-stat-today>0</strong><span>Hoje</span></article>
+        <article class="admin-stat"><strong data-stat-pending>0</strong><span>Pendentes</span></article>
+        <article class="admin-stat"><strong data-stat-confirmed>0</strong><span>Confirmados próximos</span></article>
+      </div>
+
+      <div class="admin-grid">
+        <div>
+          <section class="admin-card">
+            <div class="admin-card-header"><h2>Próximos atendimentos</h2><button class="admin-button" type="button" data-admin-refresh>Atualizar</button></div>
+            <div class="admin-appointments" data-appointments-list><p class="admin-empty">Carregando…</p></div>
+          </section>
+        </div>
+
+        <aside>
+          <section class="admin-card">
+            <h2>Configuração da agenda</h2>
+            <form data-settings-form>
+              <div class="admin-settings-grid">
+                <div class="admin-field"><label for="duration">Duração (min)</label><input id="duration" name="duration_minutes" type="number" min="15" max="240" required></div>
+                <div class="admin-field"><label for="interval">Intervalo (min)</label><input id="interval" name="interval_minutes" type="number" min="0" max="120" required></div>
+                <div class="admin-field"><label for="notice">Antecedência mínima (h)</label><input id="notice" name="minimum_notice_hours" type="number" min="0" max="720" required></div>
+                <div class="admin-field"><label for="horizon">Agenda aberta (dias)</label><input id="horizon" name="booking_horizon_days" type="number" min="1" max="365" required></div>
+                <div class="admin-field wide"><label for="timezone">Fuso horário IANA</label><input id="timezone" name="timezone" type="text" placeholder="Ex.: America/Recife" required></div>
+              </div>
+              <button class="admin-button admin-button-primary" type="submit">Salvar configurações</button>
+              <p class="admin-error" data-settings-status aria-live="polite"></p>
+            </form>
+          </section>
+
+          <section class="admin-card">
+            <h2>Disponibilidade semanal</h2>
+            <form class="admin-inline-form" data-rule-form>
+              <div class="admin-field"><label for="rule-day">Dia</label><select id="rule-day" name="weekday" required><option value="1">Segunda</option><option value="2">Terça</option><option value="3">Quarta</option><option value="4">Quinta</option><option value="5">Sexta</option><option value="6">Sábado</option><option value="0">Domingo</option></select></div>
+              <div class="admin-field"><label for="rule-modality">Modalidade</label><select id="rule-modality" name="modality" required><option value="ambos">Ambas</option><option value="presencial">Presencial</option><option value="online">Online</option></select></div>
+              <div class="admin-field"><label for="rule-start">Início</label><input id="rule-start" name="start_time" type="time" required></div>
+              <div class="admin-field"><label for="rule-end">Fim</label><input id="rule-end" name="end_time" type="time" required></div>
+              <button class="admin-button admin-button-primary" type="submit">Adicionar</button>
+            </form>
+            <div class="admin-list" data-rules-list></div>
+          </section>
+
+          <section class="admin-card">
+            <h2>Bloquear data ou período</h2>
+            <form class="admin-inline-form block-form" data-block-form>
+              <div class="admin-field"><label for="block-date">Data</label><input id="block-date" name="blocked_date" type="date" required></div>
+              <div class="admin-field"><label for="block-start">Início (opcional)</label><input id="block-start" name="start_time" type="time"></div>
+              <div class="admin-field"><label for="block-end">Fim (opcional)</label><input id="block-end" name="end_time" type="time"></div>
+              <button class="admin-button admin-button-primary" type="submit">Bloquear</button>
+            </form>
+            <p class="admin-help">Sem horários, o dia inteiro será bloqueado. Para um período, preencha início e fim.</p>
+            <div class="admin-list" data-blocks-list></div>
+          </section>
+        </aside>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
