@@ -1,129 +1,140 @@
 # Configuração do agendamento no Supabase
 
-O site funciona como página institucional mesmo sem Supabase. O agendamento online só é ativado quando `supabaseUrl` e `supabaseAnonKey` estiverem preenchidos em `config.js` e o banco estiver configurado.
+O site institucional funciona sem login para visitantes. O agendamento público
+usa apenas a chave pública do Supabase e as RPCs seguras definidas em
+`supabase/schema.sql` (`get_available_days`, `get_available_slots` e
+`book_appointment`).
 
-## 1. Criar o projeto
+A área administrativa (`/admin/`) usa **Supabase Auth** (e-mail e senha) e só
+funciona depois de configurar um usuário administrador. Se você está
+configurando o painel pela primeira vez, siga **`PRODUCTION_SECURITY_SETUP.md`**
+— ele tem o passo a passo completo, escrito para quem não conhece Supabase.
 
-Crie um projeto no Supabase e abra **SQL Editor**.
+Este arquivo cobre apenas a parte de banco de dados / schema.
 
-Execute o arquivo:
+## 1. Banco de dados
+
+Em um projeto novo, execute no **SQL Editor** o arquivo:
 
 `supabase/schema.sql`
 
-Ele cria:
+Ele cria as tabelas, ativa RLS (row level security), e cria as funções
+públicas de agendamento (`get_available_days`, `get_available_slots`,
+`book_appointment`) e as funções auxiliares de autorização
+(`is_booking_admin`, `is_booking_admin_configured`).
 
-- `booking_settings`
-- `availability_rules`
-- `blocked_periods`
-- `appointments`
-- políticas RLS
-- funções públicas seguras para consultar horários e reservar
-- proteção contra reserva concorrente do mesmo horário
+### Projeto que já executou versões anteriores do schema
 
-## 2. Criar a conta administrativa
+Se o seu projeto já tinha as funções `admin_test_*` (modo de teste, hoje
+removido), execute também:
 
-Em **Authentication → Users**, crie manualmente a conta que a Silvana usará no `/admin/`.
+`supabase/migrations/20260926_secure_admin_production.sql`
 
-Copie o UUID do usuário.
+Essa migration remove essas funções de teste, revoga qualquer acesso anônimo
+a elas, e reafirma as políticas de RLS corretas — sem apagar agendamentos,
+horários ou bloqueios já cadastrados.
 
-Depois execute no SQL Editor, substituindo o UUID:
+## 2. Chave pública do Supabase
 
-```sql
-update public.booking_settings
-set admin_user_id = 'COLE-O-UUID-AQUI'
-where id = 1;
-```
-
-Somente esse usuário poderá ler nomes, telefones, e-mails e administrar a agenda.
-
-## 3. Configurar a chave pública no site
-
-Em **Project Settings → API**, copie:
-
-- Project URL
-- anon / publishable key
-
-Preencha em `config.js`:
+Em `config.js`, mantenha somente:
 
 ```js
 supabaseUrl: 'https://SEU-PROJETO.supabase.co',
 supabaseAnonKey: 'SUA_CHAVE_PUBLICA',
 ```
 
-A chave anônima/publishable é pública por definição. **Nunca** coloque `service_role` no front-end.
+Nunca coloque `service_role`, `sb_secret`, senha ou token administrativo no
+frontend. A chave `anon`/`publishable` é segura de ficar pública: ela não dá
+acesso a nada que as políticas de RLS não permitam.
 
-## 4. Entrar no painel
+## 3. Configurar o administrador
 
-Abra:
+Veja `PRODUCTION_SECURITY_SETUP.md`. Resumo:
 
-`/admin/`
+1. crie o usuário em **Authentication → Users**;
+2. copie o UID;
+3. rode no SQL Editor:
+   ```sql
+   update public.booking_settings
+   set admin_user_id = 'COLE-O-UUID-AQUI'
+   where id = 1;
+   ```
+4. entre em `/admin/` com o e-mail e senha criados.
 
-Faça login com a conta criada no Supabase Auth.
+## 4. Usar o painel (`/admin/`)
 
-Na primeira configuração, defina no painel:
+Depois de logada, em **Meus horários**:
 
-- duração do atendimento
-- intervalo entre atendimentos
-- antecedência mínima
-- quantidade de dias futuros disponíveis
-- fuso horário IANA (ex.: `America/Recife` somente se este for realmente o fuso usado pela profissional)
+### Presencial
 
-Nenhum desses valores é inventado no projeto: enquanto faltarem, a agenda pública não oferece horários.
+1. selecione a aba **Presencial**;
+2. escolha o dia;
+3. clique em **+ Adicionar horário**;
+4. informe início e fim;
+5. salve.
 
-## 5. Criar disponibilidade semanal
+### Online
 
-No painel, adicione cada intervalo real de atendimento, por exemplo:
+1. selecione a aba **Online**;
+2. escolha o dia;
+3. clique em **+ Adicionar horário**;
+4. informe início e fim;
+5. salve.
 
-- dia da semana
-- modalidade (presencial, online ou ambas)
-- hora inicial
-- hora final
+As duas agendas são independentes e o calendário público respeita a
+modalidade escolhida.
 
-O sistema gera os slots a partir da duração e do intervalo configurados.
+## 5. Configurações gerais
+
+No painel, em **Configurações avançadas**, preencha:
+
+- duração da sessão;
+- intervalo entre sessões;
+- antecedência mínima;
+- dias futuros disponíveis;
+- fuso horário IANA (ex.: `America/Recife`).
+
+O calendário público só gera horários quando essas configurações essenciais
+estiverem preenchidas.
 
 ## 6. Bloqueios
 
-O painel permite bloquear:
+Em **Dias que não vou atender**, informe a data para bloquear o dia inteiro.
 
-- dia inteiro
-- período específico
+Os bloqueios são considerados automaticamente por `get_available_days()` e
+`get_available_slots()`.
 
-Bloqueios removem automaticamente esses horários da agenda pública.
+## 7. Agendamento do visitante
 
-## 7. Status dos agendamentos
+O fluxo público:
 
-Novas reservas entram como **Pendente**.
+1. escolher Presencial ou Online;
+2. escolher um dia disponível;
+3. escolher um horário;
+4. informar nome e WhatsApp;
+5. informar e-mail somente se quiser;
+6. confirmar.
 
-No painel é possível mudar para:
-
-- Confirmado
-- Concluído
-- Cancelado
-
-Reservas `cancelled` deixam de bloquear o horário.
+As reservas entram com status `pending` e continuam protegidas por RLS e pela
+lógica de conflito do banco (`book_appointment` usa um lock transacional para
+impedir dupla reserva do mesmo horário).
 
 ## 8. Segurança
 
-A agenda pública não possui permissão para listar a tabela `appointments`.
+- RLS está ativo em `appointments`, `availability_rules`, `blocked_periods` e
+  `booking_settings`.
+- `appointments` nunca é legível por `anon` — apenas pela conta administradora
+  autenticada (validada por `is_booking_admin()`).
+- As únicas funções que `anon` pode chamar são `get_available_days`,
+  `get_available_slots` e `book_appointment`, e nenhuma delas retorna dados de
+  outros clientes.
+- `service_role` nunca vai para o navegador.
 
-O visitante só recebe:
+## Correção do painel de disponibilidade (histórico)
 
-- dias disponíveis
-- horários disponíveis
-- resultado da própria tentativa de reserva
-
-Os dados pessoais ficam legíveis apenas para o usuário administrativo definido em `booking_settings.admin_user_id`.
-
-## 9. Dados que ainda precisam ser confirmados pela Silvana
-
-Para publicar a agenda, confirme:
-
-- duração de cada atendimento
-- intervalo entre atendimentos
-- antecedência mínima para reserva
-- horizonte de agenda (quantos dias à frente)
-- fuso horário real usado na agenda
-- disponibilidade semanal
-- WhatsApp real, se quiser mostrar o botão após a confirmação
-
-Não é necessário coletar diagnóstico, sintomas, motivo do atendimento ou outras informações clínicas.
+Se você está atualizando um projeto muito antigo e o painel mostra os dias mas
+não consegue salvar horários, isso era um problema do modo de teste (RPCs
+`admin_test_*`), que foi completamente removido. Depois de aplicar
+`supabase/migrations/20260926_secure_admin_production.sql` e configurar o
+administrador (`PRODUCTION_SECURITY_SETUP.md`), o painel usa consultas
+diretas às tabelas (protegidas por RLS) e não depende mais dessas RPCs.

@@ -9,6 +9,8 @@ Site institucional one-page com apresentação profissional, temas de acompanham
 - `config.js` — dados que mudam com frequência sem necessidade de editar o layout.
 - `assets/` — fotografias, SVGs, favicon e `og-image.webp` (1200×630).
 - `robots.txt` — instrução básica para indexação.
+- `PRODUCTION_SECURITY_SETUP.md` — passo a passo para configurar o acesso
+  administrativo com segurança (leitura obrigatória antes de publicar).
 
 ## Configuração antes da publicação
 Edite apenas informações reais em `config.js`:
@@ -41,16 +43,26 @@ Já estão preparados eventos para CTAs, Instagram, WhatsApp, menu e abertura de
 
 ## Sistema de agendamento
 
-O projeto inclui agora um fluxo de agendamento integrado ao site:
+O projeto inclui um fluxo real de agendamento integrado ao Supabase:
 
 - modalidade presencial ou online;
 - calendário com dias disponíveis;
-- horários calculados pelo Supabase;
+- horários calculados pelo banco;
 - nome, WhatsApp e e-mail opcional;
 - confirmação com status inicial `pending`;
-- proteção de conflito no banco;
-- painel administrativo em `/admin/`;
-- disponibilidade semanal e bloqueios;
+- proteção contra conflito/dupla reserva;
 - RLS para impedir leitura pública dos dados dos clientes.
 
-A agenda permanece desativada de forma segura até o Supabase ser configurado. Veja `SUPABASE_SETUP.md` e rode `supabase/schema.sql`.
+## Admin (`/admin/`)
+
+Painel de uso cotidiano: **Hoje**, **Próximas consultas**, **Meus horários** e
+**Dias que não vou atender**.
+
+O acesso é feito com Supabase Auth (e-mail e senha). Não existe mais um modo
+de teste que libera o painel sem login — toda operação administrativa (ler ou
+alterar agendamentos, disponibilidade, bloqueios e configurações) exige uma
+sessão autenticada que passe na verificação `is_booking_admin()` no banco.
+
+Para configurar o primeiro acesso administrativo, siga
+`PRODUCTION_SECURITY_SETUP.md`. Para detalhes de schema/migrations, veja
+`SUPABASE_SETUP.md`.

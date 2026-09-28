@@ -19,86 +19,232 @@
 <body class="admin-page">
   <header class="admin-topbar">
     <div class="admin-shell admin-topbar-inner">
-      <a class="admin-brand" href="../index.html">Silvana Delacio<small>Agenda administrativa</small></a>
-      <button class="admin-button" type="button" data-admin-logout hidden>Sair</button>
+      <a class="admin-brand" href="../index.html">Silvana Delacio<small>Minha agenda</small></a>
+      <div class="admin-topbar-actions">
+        <a class="admin-button admin-button-soft" href="../index.html">← Voltar ao site</a>
+        <button class="admin-button" type="button" data-admin-logout hidden>Sair</button>
+      </div>
     </div>
   </header>
 
   <main class="admin-shell admin-main">
-    <section class="admin-login" data-admin-login>
-      <p class="eyebrow">Área restrita</p>
+    <section class="admin-unconfigured" data-admin-unconfigured hidden aria-labelledby="admin-unconfigured-title">
+      <p class="admin-kicker">Agenda</p>
+      <h1 id="admin-unconfigured-title">Painel administrativo ainda não configurado.</h1>
+      <p>Quando o acesso administrativo for ativado, a agenda aparecerá aqui.</p>
+      <a class="admin-button admin-button-primary" href="../index.html">Voltar ao site</a>
+    </section>
+
+    <section class="admin-login" data-admin-login hidden>
+      <p class="admin-kicker">Área restrita</p>
       <h1>Entrar na agenda</h1>
-      <p>Use o e-mail administrativo configurado no Supabase.</p>
+      <p>Use o acesso administrativo configurado para esta agenda.</p>
       <form class="admin-form" data-admin-login-form>
         <div class="admin-field"><label for="admin-email">E-mail</label><input id="admin-email" type="email" autocomplete="username" required></div>
         <div class="admin-field"><label for="admin-password">Senha</label><input id="admin-password" type="password" autocomplete="current-password" required></div>
         <button class="admin-button admin-button-primary" type="submit">Entrar</button>
-        <p class="admin-error" data-admin-login-error aria-live="polite"></p>
+        <p class="admin-feedback is-error" data-admin-login-error aria-live="polite"></p>
       </form>
     </section>
 
     <section class="admin-app" data-admin-app hidden>
-      <div class="admin-heading">
-        <div><p class="eyebrow">Agenda</p><h1>Atendimentos</h1></div>
-        <p data-admin-today></p>
+      <div class="admin-heading-simple">
+        <p class="admin-kicker">Minha agenda</p>
+        <h1>Agenda da Silvana</h1>
+        <p>Veja quem marcou atendimento e altere seus horários quando precisar.</p>
       </div>
 
-      <div class="admin-stats">
-        <article class="admin-stat"><strong data-stat-today>0</strong><span>Hoje</span></article>
-        <article class="admin-stat"><strong data-stat-pending>0</strong><span>Pendentes</span></article>
-        <article class="admin-stat"><strong data-stat-confirmed>0</strong><span>Confirmados próximos</span></article>
-      </div>
+      <nav class="admin-nav" aria-label="Áreas da agenda">
+        <button class="admin-nav-button is-active" type="button" data-admin-view-target="today" aria-pressed="true">Hoje</button>
+        <button class="admin-nav-button" type="button" data-admin-view-target="upcoming" aria-pressed="false">Próximas consultas</button>
+        <button class="admin-nav-button" type="button" data-admin-view-target="availability" aria-pressed="false">Meus horários</button>
+        <button class="admin-nav-button admin-nav-button-secondary" type="button" data-admin-view-target="blocks" aria-pressed="false">Dias que não vou atender</button>
+        <button class="admin-nav-button admin-nav-button-secondary" type="button" data-admin-view-target="new-appointment" aria-pressed="false">Novo agendamento</button>
+      </nav>
 
-      <div class="admin-grid">
-        <div>
-          <section class="admin-card">
-            <div class="admin-card-header"><h2>Próximos atendimentos</h2><button class="admin-button" type="button" data-admin-refresh>Atualizar</button></div>
-            <div class="admin-appointments" data-appointments-list><p class="admin-empty">Carregando…</p></div>
-          </section>
+      <p class="admin-global-feedback" data-admin-global-feedback aria-live="polite"></p>
+
+      <section class="admin-view is-active" data-admin-view="today">
+        <div class="admin-view-head">
+          <div>
+            <p class="admin-kicker">Hoje</p>
+            <h2 data-today-date>Hoje</h2>
+            <p class="admin-count" data-today-count>Carregando sua agenda…</p>
+          </div>
+          <button class="admin-button admin-button-soft" type="button" data-refresh-today>Atualizar</button>
+        </div>
+        <div class="admin-appointments" data-today-list>
+          <p class="admin-empty">Carregando sua agenda…</p>
+        </div>
+      </section>
+
+      <section class="admin-view" data-admin-view="upcoming" hidden>
+        <div class="admin-view-head">
+          <div>
+            <p class="admin-kicker">Próximos dias</p>
+            <h2>Próximas consultas</h2>
+            <p class="admin-view-copy">Os atendimentos aparecem em ordem de data e horário.</p>
+          </div>
+          <button class="admin-button admin-button-soft" type="button" data-refresh-upcoming>Atualizar</button>
+        </div>
+        <div class="admin-appointment-groups" data-upcoming-list>
+          <p class="admin-empty">Carregando sua agenda…</p>
+        </div>
+      </section>
+
+      <section class="admin-view" data-admin-view="availability" hidden>
+        <div class="admin-view-head admin-view-head-simple">
+          <div>
+            <p class="admin-kicker">Meus horários</p>
+            <h2>Quando você pode atender?</h2>
+            <p class="admin-view-copy">Escolha Presencial ou Online e defina os horários de cada dia.</p>
+          </div>
         </div>
 
-        <aside>
-          <section class="admin-card">
-            <h2>Configuração da agenda</h2>
+        <div class="admin-tabs" role="tablist" aria-label="Tipo de atendimento">
+          <button class="admin-tab is-active" type="button" role="tab" aria-selected="true" data-modality-tab="presencial">Presencial</button>
+          <button class="admin-tab" type="button" role="tab" aria-selected="false" data-modality-tab="online">Online</button>
+        </div>
+
+        <div class="admin-mode-summary">
+          <strong data-modality-title>Atendimento presencial</strong>
+          <span data-modality-copy>Estes horários aparecem para quem escolher atendimento presencial.</span>
+        </div>
+
+        <div class="admin-week" data-weekly-editor aria-live="polite"></div>
+        <p class="admin-feedback admin-feedback-large" data-rules-status aria-live="polite"></p>
+
+        <details class="admin-more">
+          <summary>
+            <span><strong>Configurações avançadas</strong><small>Duração, intervalo e antecedência.</small></span>
+            <span class="admin-summary-action">Abrir</span>
+          </summary>
+          <div class="admin-more-body">
             <form data-settings-form>
               <div class="admin-settings-grid">
-                <div class="admin-field"><label for="duration">Duração (min)</label><input id="duration" name="duration_minutes" type="number" min="15" max="240" required></div>
-                <div class="admin-field"><label for="interval">Intervalo (min)</label><input id="interval" name="interval_minutes" type="number" min="0" max="120" required></div>
-                <div class="admin-field"><label for="notice">Antecedência mínima (h)</label><input id="notice" name="minimum_notice_hours" type="number" min="0" max="720" required></div>
-                <div class="admin-field"><label for="horizon">Agenda aberta (dias)</label><input id="horizon" name="booking_horizon_days" type="number" min="1" max="365" required></div>
-                <div class="admin-field wide"><label for="timezone">Fuso horário IANA</label><input id="timezone" name="timezone" type="text" placeholder="Ex.: America/Recife" required></div>
+                <div class="admin-field"><label for="duration">Tempo de cada atendimento</label><div class="admin-input-unit"><input id="duration" name="duration_minutes" type="number" min="15" max="240" placeholder="Não configurado"><span>minutos</span></div></div>
+                <div class="admin-field"><label for="interval">Pausa entre atendimentos</label><div class="admin-input-unit"><input id="interval" name="interval_minutes" type="number" min="0" max="120" placeholder="Não configurado"><span>minutos</span></div></div>
+                <div class="admin-field"><label for="notice">Antecedência mínima</label><div class="admin-input-unit"><input id="notice" name="minimum_notice_hours" type="number" min="0" max="720" placeholder="Não configurado"><span>horas</span></div></div>
+                <div class="admin-field"><label for="horizon">Dias disponíveis no futuro</label><div class="admin-input-unit"><input id="horizon" name="booking_horizon_days" type="number" min="1" max="365" placeholder="Não configurado"><span>dias</span></div></div>
+                <div class="admin-field wide"><label for="timezone">Fuso horário</label><input id="timezone" name="timezone" type="text" placeholder="Ex.: America/Recife"></div>
               </div>
-              <button class="admin-button admin-button-primary" type="submit">Salvar configurações</button>
-              <p class="admin-error" data-settings-status aria-live="polite"></p>
+              <div class="admin-form-footer">
+                <button class="admin-button admin-button-primary" type="submit">Salvar configurações</button>
+                <p class="admin-feedback" data-settings-status aria-live="polite"></p>
+              </div>
             </form>
-          </section>
+          </div>
+        </details>
+      </section>
 
-          <section class="admin-card">
-            <h2>Disponibilidade semanal</h2>
-            <form class="admin-inline-form" data-rule-form>
-              <div class="admin-field"><label for="rule-day">Dia</label><select id="rule-day" name="weekday" required><option value="1">Segunda</option><option value="2">Terça</option><option value="3">Quarta</option><option value="4">Quinta</option><option value="5">Sexta</option><option value="6">Sábado</option><option value="0">Domingo</option></select></div>
-              <div class="admin-field"><label for="rule-modality">Modalidade</label><select id="rule-modality" name="modality" required><option value="ambos">Ambas</option><option value="presencial">Presencial</option><option value="online">Online</option></select></div>
-              <div class="admin-field"><label for="rule-start">Início</label><input id="rule-start" name="start_time" type="time" required></div>
-              <div class="admin-field"><label for="rule-end">Fim</label><input id="rule-end" name="end_time" type="time" required></div>
-              <button class="admin-button admin-button-primary" type="submit">Adicionar</button>
-            </form>
-            <div class="admin-list" data-rules-list></div>
-          </section>
+      <section class="admin-view" data-admin-view="blocks" hidden>
+        <div class="admin-view-head admin-view-head-simple">
+          <div>
+            <p class="admin-kicker">Folgas</p>
+            <h2>Dias que não vou atender</h2>
+            <p class="admin-view-copy">Escolha uma data para bloquear o dia inteiro.</p>
+          </div>
+        </div>
 
-          <section class="admin-card">
-            <h2>Bloquear data ou período</h2>
-            <form class="admin-inline-form block-form" data-block-form>
-              <div class="admin-field"><label for="block-date">Data</label><input id="block-date" name="blocked_date" type="date" required></div>
-              <div class="admin-field"><label for="block-start">Início (opcional)</label><input id="block-start" name="start_time" type="time"></div>
-              <div class="admin-field"><label for="block-end">Fim (opcional)</label><input id="block-end" name="end_time" type="time"></div>
-              <button class="admin-button admin-button-primary" type="submit">Bloquear</button>
-            </form>
-            <p class="admin-help">Sem horários, o dia inteiro será bloqueado. Para um período, preencha início e fim.</p>
-            <div class="admin-list" data-blocks-list></div>
-          </section>
-        </aside>
-      </div>
+        <form class="admin-block-simple" data-block-form>
+          <div class="admin-field">
+            <label for="block-date">Escolha o dia</label>
+            <input id="block-date" name="blocked_date" type="date" required>
+          </div>
+
+          <label class="admin-checkbox-row">
+            <input type="checkbox" data-block-only-part>
+            Bloquear só uma parte do dia
+          </label>
+
+          <div class="admin-block-time-fields" data-block-time-fields hidden>
+            <div class="admin-field admin-time-field"><label for="block-start">Das</label><input id="block-start" name="start_time" type="time"></div>
+            <div class="admin-field admin-time-field"><label for="block-end">Até</label><input id="block-end" name="end_time" type="time"></div>
+          </div>
+
+          <button class="admin-button admin-button-primary admin-button-large" type="submit" data-block-submit-label>Não vou atender neste dia</button>
+        </form>
+        <p class="admin-feedback" data-blocks-status aria-live="polite"></p>
+
+        <div class="admin-block-list-head">
+          <h3>Dias bloqueados</h3>
+        </div>
+        <div class="admin-list" data-blocks-list></div>
+      </section>
+
+      <section class="admin-view" data-admin-view="new-appointment" hidden>
+        <div class="admin-view-head admin-view-head-simple">
+          <div>
+            <p class="admin-kicker">Agendamento manual</p>
+            <h2>Adicionar um atendimento</h2>
+            <p class="admin-view-copy">Preencha os dados abaixo. Só aparecem os horários que ainda estão livres.</p>
+          </div>
+        </div>
+
+        <form class="admin-form admin-new-appointment-form" data-new-appointment-form>
+          <div class="admin-field"><label for="new-appt-name">Nome da pessoa</label><input id="new-appt-name" name="client_name" type="text" required></div>
+          <div class="admin-field"><label for="new-appt-phone">WhatsApp (com DDD)</label><input id="new-appt-phone" name="client_phone" type="tel" inputmode="numeric" placeholder="Ex.: 81999998888" required></div>
+
+          <div class="admin-field">
+            <label>Modalidade</label>
+            <div class="admin-tabs" role="tablist" aria-label="Modalidade do atendimento">
+              <button class="admin-tab is-active" type="button" role="tab" aria-selected="true" data-new-appt-modality="presencial">Presencial</button>
+              <button class="admin-tab" type="button" role="tab" aria-selected="false" data-new-appt-modality="online">Online</button>
+            </div>
+          </div>
+
+          <div class="admin-field"><label for="new-appt-date">Data</label><input id="new-appt-date" name="appointment_date" type="date" required></div>
+
+          <div class="admin-field">
+            <label for="new-appt-time">Horário</label>
+            <select id="new-appt-time" name="start_time" required disabled>
+              <option value="">Escolha a data primeiro</option>
+            </select>
+          </div>
+
+          <div class="admin-form-footer">
+            <button class="admin-button admin-button-primary admin-button-large" type="submit">Salvar agendamento</button>
+            <p class="admin-feedback" data-new-appointment-status aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+
+      <p class="admin-date" data-admin-today></p>
     </section>
   </main>
+
+  <dialog class="admin-dialog" data-rule-dialog aria-labelledby="rule-dialog-title">
+    <form class="admin-dialog-card" data-rule-dialog-form>
+      <button class="admin-dialog-close" type="button" aria-label="Fechar" data-rule-dialog-close>×</button>
+      <p class="admin-kicker">Meus horários</p>
+      <h2 id="rule-dialog-title" data-rule-dialog-title>Adicionar horário</h2>
+      <p class="admin-dialog-context" data-rule-dialog-context></p>
+      <input type="hidden" name="rule_id">
+      <input type="hidden" name="weekday">
+      <input type="hidden" name="modality">
+      <div class="admin-dialog-fields">
+        <div class="admin-field admin-time-field"><label>Começa às<input name="start_time" type="time" required></label></div>
+        <div class="admin-field admin-time-field"><label>Termina às<input name="end_time" type="time" required></label></div>
+      </div>
+      <p class="admin-dialog-error" data-rule-dialog-error aria-live="polite"></p>
+      <div class="admin-dialog-actions">
+        <button class="admin-button" type="button" data-rule-dialog-cancel>Cancelar</button>
+        <button class="admin-button admin-button-primary admin-save-big" type="submit">Salvar horário</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="admin-dialog admin-dialog-small" data-cancel-dialog aria-labelledby="cancel-dialog-title">
+    <div class="admin-dialog-card">
+      <button class="admin-dialog-close" type="button" aria-label="Fechar" data-cancel-dialog-close>×</button>
+      <p class="admin-kicker">Consulta</p>
+      <h2 id="cancel-dialog-title">Deseja cancelar esta consulta?</h2>
+      <p class="admin-dialog-context" data-cancel-dialog-context></p>
+      <div class="admin-dialog-actions">
+        <button class="admin-button" type="button" data-cancel-dialog-back>Voltar</button>
+        <button class="admin-button admin-button-danger" type="button" data-cancel-dialog-confirm>Sim, cancelar</button>
+      </div>
+    </div>
+  </dialog>
 </body>
 </html>

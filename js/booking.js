@@ -11,6 +11,7 @@
   const $$ = (selector, root = dialog) => [...root.querySelectorAll(selector)];
   const steps = $$('.booking-step');
   const progressItems = $$('.booking-progress li');
+  const progressNav = $('.booking-progress');
   const unavailable = $('.booking-unavailable');
   const success = $('.booking-success');
   const statusBox = $('.booking-status');
@@ -26,7 +27,6 @@
   const form = $('#booking-client-form');
   const whatsappAfter = $('[data-booking-whatsapp]');
   const successDetails = $('[data-booking-success-details]');
-
   let opener = null;
   let currentStep = 1;
   let availableDays = new Set();
@@ -72,6 +72,25 @@
   const clearStatus = () => { statusBox.textContent = ''; };
   const setStatus = (message) => { statusBox.textContent = message || ''; };
 
+  // No mobile o indicador de etapas rola na horizontal (ver css/booking.css).
+  // Estas sombras nas bordas avisam que dá para arrastar quando falta algo
+  // para ver de cada lado; em telas largas o indicador nunca ultrapassa o
+  // espaço disponível, então as classes simplesmente não são ativadas.
+  const updateProgressFade = () => {
+    if (!progressNav) return;
+    const maxScroll = progressNav.scrollWidth - progressNav.clientWidth;
+    if (maxScroll <= 1) {
+      progressNav.classList.remove('has-scroll-start', 'has-scroll-end');
+      return;
+    }
+    progressNav.classList.toggle('has-scroll-start', progressNav.scrollLeft > 4);
+    progressNav.classList.toggle('has-scroll-end', progressNav.scrollLeft < maxScroll - 4);
+  };
+  if (progressNav) {
+    progressNav.addEventListener('scroll', updateProgressFade, { passive: true });
+    window.addEventListener('resize', updateProgressFade);
+  }
+
   const updateProgress = () => {
     progressItems.forEach((item, index) => {
       const step = index + 1;
@@ -80,6 +99,9 @@
       if (step === currentStep) item.setAttribute('aria-current', 'step');
       else item.removeAttribute('aria-current');
     });
+    const activeItem = progressItems[currentStep - 1];
+    activeItem?.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
+    requestAnimationFrame(updateProgressFade);
   };
 
   const renderStep = () => {
@@ -134,6 +156,7 @@
     reset();
     if (!client) showBackendUnavailable();
     dialog.showModal();
+    requestAnimationFrame(updateProgressFade);
     doc.body.classList.add('booking-open');
     emit('booking_open', { source: opener?.dataset?.track || 'unknown' });
   };
@@ -222,6 +245,11 @@
     }
     (data || []).forEach((row) => availableDays.add(row.available_date || row));
     renderCalendar();
+    if (availableDays.size === 0) {
+      slotsDate.textContent = 'Nenhum dia disponível ainda.';
+      slotsGrid.innerHTML = '<p class="booking-empty">Não há horários disponíveis neste período.</p>';
+      setStatus('Não há horários disponíveis neste mês.');
+    }
   };
 
   const selectDate = async (iso) => {

@@ -106,6 +106,26 @@ $$;
 revoke all on function public.is_booking_admin() from public;
 grant execute on function public.is_booking_admin() to authenticated;
 
+
+-- Expõe somente um booleano seguro para o /admin saber se já existe um administrador.
+-- O UUID nunca é retornado ao navegador.
+create or replace function public.is_booking_admin_configured()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.booking_settings
+    where id = 1 and admin_user_id is not null
+  );
+$$;
+
+revoke all on function public.is_booking_admin_configured() from public;
+grant execute on function public.is_booking_admin_configured() to anon, authenticated;
+
 alter table public.booking_settings enable row level security;
 alter table public.availability_rules enable row level security;
 alter table public.blocked_periods enable row level security;
@@ -342,3 +362,8 @@ $$;
 revoke all on function public.book_appointment(text, text, text, date, time, text) from public;
 grant execute on function public.book_appointment(text, text, text, date, time, text) to anon, authenticated;
 
+
+-- Fim do schema de produção.
+-- Nenhuma função "admin_test_*" é criada por este arquivo: a área
+-- administrativa usa Supabase Auth + RLS (ver supabase/migrations/
+-- 20260926_secure_admin_production.sql e PRODUCTION_SECURITY_SETUP.md).
