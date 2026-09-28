@@ -1,0 +1,45 @@
+name: Apply project update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.project-update.part*'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply project files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -f .project-update.part00 ]; then
+            echo "No staged project update."
+            exit 0
+          fi
+
+          cat .project-update.part* | base64 -d > /tmp/project-update.tar.xz
+          tar -xJf /tmp/project-update.tar.xz
+          rm -f .project-update.part*
+
+          git config user.name "DevMendes"
+          git config user.email "mendeszk2025@hotmail.com"
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Atualiza projeto: redesign mobile e créditos"
+          git push origin HEAD:main
