@@ -17,6 +17,8 @@
   const todayDate = doc.querySelector('[data-today-date]');
   const todayCount = doc.querySelector('[data-today-count]');
   const todayList = doc.querySelector('[data-today-list]');
+  const dayKicker = doc.querySelector('[data-day-kicker]');
+  const dayPick = doc.querySelector('[data-day-pick]');
   const upcomingList = doc.querySelector('[data-upcoming-list]');
 
   const settingsForm = doc.querySelector('[data-settings-form]');
@@ -36,6 +38,8 @@
   const ruleDialogTitle = doc.querySelector('[data-rule-dialog-title]');
   const ruleDialogContext = doc.querySelector('[data-rule-dialog-context]');
   const ruleDialogError = doc.querySelector('[data-rule-dialog-error]');
+  const ruleDaysBox = doc.querySelector('[data-rule-days]');
+  const ruleDaysGrid = doc.querySelector('[data-rule-days-grid]');
 
   const cancelDialog = doc.querySelector('[data-cancel-dialog]');
   const cancelDialogContext = doc.querySelector('[data-cancel-dialog-context]');
@@ -59,6 +63,7 @@
   };
 
   let activeView = 'today';
+  let selectedDay = '';
   let activeModality = 'presencial';
   let rules = [];
   let blocks = [];
@@ -179,6 +184,15 @@
         end_time: payload.end_time,
         is_active: true
       });
+    },
+    async createRules(list) {
+      return client.from('availability_rules').insert(list.map((payload) => ({
+        weekday: payload.weekday,
+        modality: payload.modality,
+        start_time: payload.start_time,
+        end_time: payload.end_time,
+        is_active: true
+      })));
     },
     async updateRule(payload) {
       return client.from('availability_rules').update({
@@ -304,12 +318,18 @@
 
   const loadToday = async () => {
     const today = localISO(new Date());
-    todayDate.textContent = formatDateFull(today);
+    if (!selectedDay) selectedDay = today;
+    const day = selectedDay;
+    const isToday = day === today;
+    todayDate.textContent = formatDateFull(day);
+    if (dayKicker) dayKicker.textContent = isToday ? 'Agenda de hoje' : 'Agenda do dia';
+    if (dayPick) dayPick.value = day;
     todayList.innerHTML = '<p class="admin-empty">Carregando sua agenda…</p>';
     todayCount.textContent = 'Carregando sua agenda…';
     setFeedback(globalFeedback, '');
 
-    const { data, error } = await api.listAppointments(today, today);
+    const { data, error } = await api.listAppointments(day, day);
+    if (day !== selectedDay) return;
     if (error) {
       todayCount.textContent = 'Não foi possível carregar as consultas.';
       showAppointmentsError(todayList, error);
@@ -317,11 +337,22 @@
     }
     const appointments = Array.isArray(data) ? data : [];
     const activeCount = appointments.filter((item) => item.status !== 'cancelled').length;
-    todayCount.textContent = activeCount === 1 ? '1 consulta hoje' : `${activeCount} consultas hoje`;
+    const when = isToday ? 'hoje' : 'neste dia';
+    todayCount.textContent = activeCount === 0 ? `Nenhuma consulta ${when}` : activeCount === 1 ? `1 consulta ${when}` : `${activeCount} consultas ${when}`;
     todayList.innerHTML = appointments.length
       ? appointments.map(appointmentCard).join('')
-      : '<p class="admin-empty">Nenhuma consulta marcada para hoje.</p>';
+      : `<p class="admin-empty">Nenhuma consulta marcada ${isToday ? 'para hoje' : 'para este dia'}.</p>`;
   };
+
+  const goToDay = (iso) => {
+    if (!iso) return;
+    selectedDay = iso;
+    loadToday();
+  };
+  doc.querySelector('[data-day-prev]')?.addEventListener('click', () => goToDay(localISO(addDays(parseISODate(selectedDay || localISO(new Date())), -1))));
+  doc.querySelector('[data-day-next]')?.addEventListener('click', () => goToDay(localISO(addDays(parseISODate(selectedDay || localISO(new Date())), 1))));
+  doc.querySelector('[data-day-today]')?.addEventListener('click', () => goToDay(localISO(new Date())));
+  dayPick?.addEventListener('change', () => goToDay(dayPick.value));
 
   const dateGroupTitle = (iso) => {
     const today = new Date();
@@ -422,6 +453,13 @@
       return;
     }
     currentSettings = data;
+    const incomplete = ['duration_minutes','interval_minutes','minimum_notice_hours','booking_horizon_days','timezone'].some((key) => data[key] === null || data[key] === '');
+    const notice = doc.querySelector('[data-settings-notice]');
+    if (notice) notice.hidden = !incomplete;
+    const details = doc.querySelector('[data-settings-details]');
+    if (details && incomplete) details.open = true;
+    const tz = settingsForm?.elements.timezone;
+    if (tz && data.timezone && ![...tz.options].some((o) => o.value === data.timezone)) tz.add(new Option(data.timezone, data.timezone));
     ['duration_minutes','interval_minutes','minimum_notice_hours','booking_horizon_days','timezone'].forEach((key) => {
       if (settingsForm?.elements[key]) settingsForm.elements[key].value = data[key] ?? '';
     });
@@ -481,6 +519,11 @@
     ruleDialogForm.elements.modality.value = activeModality;
     ruleDialogForm.elements.start_time.value = rule ? time(rule.start_time) : '';
     ruleDialogForm.elements.end_time.value = rule ? time(rule.end_time) : '';
+    if (ruleDaysBox) {
+      ruleDaysBox.hidden = Boolean(rule);
+      ruleDaysGrid.innerHTML = weekDays.filter((day) => day.value !== Number(weekday)).map((day) => `
+        <label class="admin-checkbox-row"><input type="checkbox" name="extra_days" value="${day.value}"> ${day.label}</label>`).join('');
+    }
     ruleDialogTitle.textContent = rule ? 'Editar horário' : 'Adicionar horário';
     ruleDialogContext.textContent = `${dayName(weekday)} · ${activeModality === 'online' ? 'Online' : 'Presencial'}`;
     const submitButton = ruleDialogForm.querySelector('[type="submit"]');
@@ -538,29 +581,34 @@
       start_time: start,
       end_time: end
     };
+    const targetDays = payload.id
+      ? [payload.weekday]
+      : [payload.weekday, ...form.getAll('extra_days').map(Number)];
 
-    const overlaps = rules.some((rule) => {
+    const conflict = targetDays.find((weekday) => rules.some((rule) => {
       if (payload.id && rule.id === payload.id) return false;
-      if (Number(rule.weekday) !== payload.weekday || rule.modality !== payload.modality || !rule.is_active) return false;
+      if (Number(rule.weekday) !== weekday || rule.modality !== payload.modality || !rule.is_active) return false;
       return payload.start_time < time(rule.end_time) && payload.end_time > time(rule.start_time);
-    });
-    if (overlaps) {
-      ruleDialogError.textContent = 'Esse horário se sobrepõe a outro já cadastrado.';
+    }));
+    if (conflict !== undefined) {
+      ruleDialogError.textContent = `Esse horário se sobrepõe a outro já cadastrado em ${dayName(conflict).toLowerCase()}.`;
       return;
     }
 
     const submit = ruleDialogForm.querySelector('[type="submit"]');
     submit.disabled = true;
-    const { error } = payload.id ? await api.updateRule(payload) : await api.createRule(payload);
+    const { error } = payload.id
+      ? await api.updateRule(payload)
+      : await api.createRules(targetDays.map((weekday) => ({ ...payload, weekday })));
     submit.disabled = false;
     if (error) {
-      console.error('[agenda] Falha ao salvar horário', { payload, error });
-      ruleDialogError.textContent = mapRpcError(error, 'Não foi possível salvar o horário.');
+      console.error('[agenda] Falha ao salvar horário', error);
+      ruleDialogError.textContent = mapRpcError(error, 'Não foi possível salvar o horário. Confira se ele já não existe.');
       return;
     }
     closeRuleDialog();
     await loadRules();
-    setFeedback(rulesStatus, payload.id ? 'Horário atualizado.' : 'Horário salvo.');
+    setFeedback(rulesStatus, payload.id ? 'Horário atualizado.' : targetDays.length > 1 ? `Horário salvo em ${targetDays.length} dias.` : 'Horário salvo.');
   });
 
   doc.querySelector('[data-rule-dialog-close]')?.addEventListener('click', closeRuleDialog);
@@ -597,6 +645,14 @@
       booking_horizon_days: nullableNumber('booking_horizon_days'),
       timezone: String(raw.get('timezone') || '').trim() || null
     };
+    const numericRules = [['duration_minutes', 15, 240, 'O tempo de cada atendimento'], ['interval_minutes', 0, 120, 'A pausa entre atendimentos'], ['minimum_notice_hours', 0, 720, 'A antecedência mínima'], ['booking_horizon_days', 1, 365, 'Os dias disponíveis no futuro']];
+    for (const [key, min, max, label] of numericRules) {
+      const value = payload[key];
+      if (value !== null && (!Number.isInteger(value) || value < min || value > max)) {
+        setFeedback(settingsStatus, `${label} precisa ser um número entre ${min} e ${max}.`, true);
+        return;
+      }
+    }
     setFeedback(settingsStatus, 'Salvando…');
     const { error } = await api.updateSettings(payload);
     if (error) {
@@ -604,7 +660,7 @@
       setFeedback(settingsStatus, mapRpcError(error, 'Não foi possível salvar as configurações.'), true);
       return;
     }
-    currentSettings = payload;
+    await loadSettings();
     setFeedback(settingsStatus, 'Configurações salvas.');
   });
 
@@ -670,6 +726,10 @@
     }
     if (onlyPart && startTime >= endTime) {
       setFeedback(blocksStatus, 'O horário final precisa ser depois do inicial.', true);
+      return;
+    }
+    if (blockedDate < localISO(new Date())) {
+      setFeedback(blocksStatus, 'Escolha uma data de hoje em diante.', true);
       return;
     }
     const submit = blockForm.querySelector('[type="submit"]');
@@ -807,7 +867,7 @@
     });
     setFeedback(globalFeedback, '');
 
-    if (viewName === 'today') await loadToday();
+    if (viewName === 'today') { selectedDay = localISO(new Date()); await loadToday(); }
     if (viewName === 'upcoming') await loadUpcoming();
     if (viewName === 'availability') await Promise.all([loadSettings(), loadRules()]);
     if (viewName === 'blocks') await loadBlocks();

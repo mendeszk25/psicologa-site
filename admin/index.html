@@ -67,11 +67,17 @@
       <section class="admin-view is-active" data-admin-view="today">
         <div class="admin-view-head">
           <div>
-            <p class="admin-kicker">Hoje</p>
+            <p class="admin-kicker" data-day-kicker>Agenda de hoje</p>
             <h2 data-today-date>Hoje</h2>
             <p class="admin-count" data-today-count>Carregando sua agenda…</p>
           </div>
           <button class="admin-button admin-button-soft" type="button" data-refresh-today>Atualizar</button>
+        </div>
+        <div class="admin-day-nav" role="group" aria-label="Trocar de dia">
+          <button class="admin-button" type="button" data-day-prev>← Dia anterior</button>
+          <button class="admin-button admin-button-soft" type="button" data-day-today>Hoje</button>
+          <button class="admin-button" type="button" data-day-next>Próximo dia →</button>
+          <label class="admin-day-pick">Ir para o dia <input type="date" data-day-pick></label>
         </div>
         <div class="admin-appointments" data-today-list>
           <p class="admin-empty">Carregando sua agenda…</p>
@@ -114,7 +120,9 @@
         <div class="admin-week" data-weekly-editor aria-live="polite"></div>
         <p class="admin-feedback admin-feedback-large" data-rules-status aria-live="polite"></p>
 
-        <details class="admin-more">
+        <p class="admin-notice" data-settings-notice hidden>Para o site mostrar horários às pessoas, preencha as <strong>Configurações avançadas</strong> abaixo (tempo de cada atendimento, pausa, antecedência, dias no futuro e fuso horário) e salve.</p>
+
+        <details class="admin-more" data-settings-details>
           <summary>
             <span><strong>Configurações avançadas</strong><small>Duração, intervalo e antecedência.</small></span>
             <span class="admin-summary-action">Abrir</span>
@@ -126,7 +134,7 @@
                 <div class="admin-field"><label for="interval">Pausa entre atendimentos</label><div class="admin-input-unit"><input id="interval" name="interval_minutes" type="number" min="0" max="120" placeholder="Não configurado"><span>minutos</span></div></div>
                 <div class="admin-field"><label for="notice">Antecedência mínima</label><div class="admin-input-unit"><input id="notice" name="minimum_notice_hours" type="number" min="0" max="720" placeholder="Não configurado"><span>horas</span></div></div>
                 <div class="admin-field"><label for="horizon">Dias disponíveis no futuro</label><div class="admin-input-unit"><input id="horizon" name="booking_horizon_days" type="number" min="1" max="365" placeholder="Não configurado"><span>dias</span></div></div>
-                <div class="admin-field wide"><label for="timezone">Fuso horário</label><input id="timezone" name="timezone" type="text" placeholder="Ex.: America/Recife"></div>
+                <div class="admin-field wide"><label for="timezone">Fuso horário</label><select id="timezone" name="timezone"><option value="">Não configurado</option><option value="America/Recife">Recife, Salvador, Fortaleza (Brasília)</option><option value="America/Sao_Paulo">São Paulo, Rio de Janeiro (Brasília)</option><option value="America/Manaus">Manaus</option><option value="America/Cuiaba">Cuiabá</option><option value="America/Rio_Branco">Rio Branco</option><option value="America/Noronha">Fernando de Noronha</option></select></div>
               </div>
               <div class="admin-form-footer">
                 <button class="admin-button admin-button-primary" type="submit">Salvar configurações</button>
@@ -222,6 +230,10 @@
       <input type="hidden" name="rule_id">
       <input type="hidden" name="weekday">
       <input type="hidden" name="modality">
+      <fieldset class="admin-days-pick" data-rule-days>
+        <legend>Repetir também em outros dias</legend>
+        <div class="admin-days-pick-grid" data-rule-days-grid></div>
+      </fieldset>
       <div class="admin-dialog-fields">
         <div class="admin-field admin-time-field"><label>Começa às<input name="start_time" type="time" required></label></div>
         <div class="admin-field admin-time-field"><label>Termina às<input name="end_time" type="time" required></label></div>

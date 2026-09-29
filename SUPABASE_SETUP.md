@@ -25,6 +25,10 @@ públicas de agendamento (`get_available_days`, `get_available_slots`,
 
 ### Projeto que já executou versões anteriores do schema
 
+Depois da migration abaixo, execute também `supabase/migrations/20260928_harden_booking.sql`
+(respeita a pausa entre atendimentos e limita a 3 agendamentos ativos por telefone).
+Ela não apaga dados.
+
 Se o seu projeto já tinha as funções `admin_test_*` (modo de teste, hoje
 removido), execute também:
 

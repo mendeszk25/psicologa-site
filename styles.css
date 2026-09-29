@@ -77,7 +77,7 @@ svg { display: block; }
 
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3 { text-wrap: balance; }
-h1, h2, .hero-quote-card p, .about-aside p {
+h1, h2, .approach h3, .care-card h3, .hero-quote-card p, .about-aside p {
   font-family: var(--serif);
   font-weight: 500;
   letter-spacing: -.03em;
@@ -276,7 +276,7 @@ h1, h2, .hero-quote-card p, .about-aside p {
 .about-aside small { color: var(--color-muted); font-size: .56rem; letter-spacing: .2em; text-transform: uppercase; }
 .aside-rule { width: 42px; height: 1px; margin-bottom: 14px; background: rgba(81,90,72,.35); }
 .approach { margin-top: clamp(56px, 6vw, 88px); padding: 34px 0 0; border-top: 1px solid var(--color-line); display: grid; grid-template-columns: minmax(0,.72fr) minmax(0,1fr); gap: clamp(34px,5vw,82px); align-items: start; }
-.approach h3 { margin: 0; max-width: 13ch; font-size: clamp(1.95rem, 2.45vw, 2.7rem); line-height: 1; }
+.approach h3 { margin: 0; max-width: 18ch; font-size: clamp(1.95rem, 2.45vw, 2.7rem); line-height: 1; }
 .approach p:last-child { margin: 0; max-width: 720px; color: var(--color-ink-soft); font-size: .92rem; line-height: 1.7; }
 
 /* Topics — editorial list, not a grid of cards */
@@ -1066,7 +1066,7 @@ details p { max-width: 760px; margin: -2px 0 0; padding: 0 56px 22px 2px; color:
   }
   .section-head > div { max-width: 100%; }
   .section-head h2 {
-    max-width: 12ch;
+    max-width: 16ch;
     font-size: clamp(2.35rem, 10.4vw, 3rem);
     line-height: .94;
     letter-spacing: -.035em;
@@ -1085,7 +1085,7 @@ details p { max-width: 760px; margin: -2px 0 0; padding: 0 56px 22px 2px; color:
   }
   .about-photo { display: none; }
   .about-copy h2 {
-    max-width: 9.7ch;
+    max-width: 12ch;
     margin-bottom: 22px;
     font-size: clamp(2.55rem, 11vw, 3.24rem);
     line-height: .93;
@@ -1135,7 +1135,7 @@ details p { max-width: 760px; margin: -2px 0 0; padding: 0 56px 22px 2px; color:
     gap: 16px;
   }
   .approach h3 {
-    max-width: 13ch;
+    max-width: 18ch;
     font-size: 1.88rem;
     line-height: .98;
   }
@@ -1231,7 +1231,8 @@ details p { max-width: 760px; margin: -2px 0 0; padding: 0 56px 22px 2px; color:
   .care {
     background: #f2eee6;
   }
-  .care .section-head h2 { max-width: 11.5ch; }
+  .care .section-head h2 { max-width: 16ch; }
+  .care .section-head h2 br { display: none; }
   .care-grid { gap: 20px; }
   .care-card,
   .care-card:nth-child(even) {
@@ -1275,7 +1276,7 @@ details p { max-width: 760px; margin: -2px 0 0; padding: 0 56px 22px 2px; color:
   .faq-section { background: #f8f6f0; }
   .faq-grid { gap: 31px; }
   .faq-intro h2 {
-    max-width: 11ch;
+    max-width: 14ch;
     margin-bottom: 16px;
     font-size: clamp(2.38rem, 10.4vw, 3rem);
   }
@@ -1416,4 +1417,17 @@ details p { max-width: 760px; margin: -2px 0 0; padding: 0 56px 22px 2px; color:
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .js [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* Revisão: títulos em serifa e tamanhos consistentes */
+.approach h3, .care-card h3 { font-weight: 500; letter-spacing: -.03em; }
+.approach h3 { font-size: clamp(1.9rem, 2.4vw, 2.6rem); line-height: 1.02; }
+.care-card h3 { font-size: clamp(1.7rem, 2.1vw, 2.3rem); }
+.admin-access-link { opacity: .75; }
+.admin-access-link:hover, .admin-access-link:focus-visible { opacity: 1; }
+
+/* Folha decorativa do FAQ não deve cobrir o botão */
+@media (min-width: 981px) {
+  .faq-leaf { left: -40px; bottom: -150px; width: 150px; height: 175px; opacity: .8; pointer-events: none; z-index: 0; }
+  .faq-intro .button { position: relative; z-index: 1; }
 }

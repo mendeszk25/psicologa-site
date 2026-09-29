@@ -241,8 +241,8 @@ begin
       from public.appointments a
       where a.appointment_date = p_date
         and a.status in ('pending','confirmed')
-        and c.start_t < a.end_time
-        and c.end_t > a.start_time
+        and c.start_t < a.end_time + make_interval(mins => v_interval)
+        and c.end_t + make_interval(mins => v_interval) > a.start_time
     )
   order by c.start_t;
 end;
@@ -327,6 +327,16 @@ begin
   from public.booking_settings where id = 1;
   if v_duration is null then
     raise exception using errcode = 'P0001', message = 'booking_not_configured';
+  end if;
+
+  -- Evita que uma mesma pessoa (ou robô) reserve vários horários e esvazie a agenda.
+  if (
+    select count(*) from public.appointments a
+    where a.client_phone = v_phone
+      and a.status in ('pending','confirmed')
+      and a.appointment_date >= current_date
+  ) >= 3 then
+    raise exception using errcode = 'P0001', message = 'too_many_bookings';
   end if;
 
   -- Serializa tentativas concorrentes para o mesmo início de horário.

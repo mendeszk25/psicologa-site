@@ -30,6 +30,8 @@
   let opener = null;
   let currentStep = 1;
   let availableDays = new Set();
+  let daysRequest = 0;
+  let slotsRequest = 0;
   let viewMonth = new Date();
   viewMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth(), 1);
 
@@ -59,6 +61,12 @@
   }).format(parseISODate(value));
   const formatMonth = (date) => new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(date);
   const formatTime = (value) => String(value || '').slice(0, 5);
+  const formatPhone = (digits) => {
+    const local = digits.startsWith('55') && digits.length >= 12 ? digits.slice(2) : digits;
+    if (local.length === 11) return `(${local.slice(0, 2)}) ${local.slice(2, 7)}-${local.slice(7)}`;
+    if (local.length === 10) return `(${local.slice(0, 2)}) ${local.slice(2, 6)}-${local.slice(6)}`;
+    return digits;
+  };
 
   const deriveWhatsappUrl = () => {
     const phone = String(config.whatsapp || '').replace(/\D/g, '');
@@ -114,7 +122,7 @@
     updateProgress();
     clearStatus();
 
-    if (currentStep === 2) loadAvailableDays();
+    if (currentStep === 2) loadAvailableDays({ keepSelection: true });
     if (currentStep === 4) renderSummary();
 
     const heading = $(`[data-booking-step="${currentStep}"] h2`);
@@ -222,8 +230,10 @@
     }
   };
 
-  const loadAvailableDays = async () => {
+  const loadAvailableDays = async ({ keepSelection = false } = {}) => {
     if (!client || !state.modality) return;
+    const request = ++daysRequest;
+    const previousDate = keepSelection ? state.date : '';
     availableDays = new Set();
     daysGrid.innerHTML = '<p class="booking-loading">Carregando agenda…</p>';
     slotsGrid.innerHTML = '';
@@ -237,6 +247,7 @@
       p_month_start: monthStart,
       p_modality: state.modality
     });
+    if (request !== daysRequest) return;
 
     if (error) {
       renderCalendar();
@@ -246,13 +257,15 @@
     (data || []).forEach((row) => availableDays.add(row.available_date || row));
     renderCalendar();
     if (availableDays.size === 0) {
-      slotsDate.textContent = 'Nenhum dia disponível ainda.';
-      slotsGrid.innerHTML = '<p class="booking-empty">Não há horários disponíveis neste período.</p>';
-      setStatus('Não há horários disponíveis neste mês.');
+      slotsDate.textContent = 'Nenhum dia disponível neste mês.';
+      slotsGrid.innerHTML = '<p class="booking-empty">Não há horários disponíveis neste período. Use as setas para ver o mês seguinte.</p>';
+      return;
     }
+    if (previousDate && availableDays.has(previousDate)) selectDate(previousDate);
   };
 
   const selectDate = async (iso) => {
+    const request = ++slotsRequest;
     state.date = iso;
     state.time = '';
     renderCalendar();
@@ -264,13 +277,14 @@
       p_date: iso,
       p_modality: state.modality
     });
+    if (request !== slotsRequest) return;
     if (error) {
-      slotsGrid.innerHTML = '<p class="booking-empty">Não foi possível carregar os horários.</p>';
+      slotsGrid.innerHTML = '<p class="booking-empty">Não foi possível carregar os horários. Tente novamente.</p>';
       return;
     }
     const slots = (data || []).map((row) => row.slot_time || row);
     if (!slots.length) {
-      slotsGrid.innerHTML = '<p class="booking-empty">Não há horários disponíveis neste dia.</p>';
+      slotsGrid.innerHTML = '<p class="booking-empty">Não há horários disponíveis neste dia. Escolha outra data.</p>';
       return;
     }
     slotsGrid.innerHTML = '';
@@ -288,6 +302,7 @@
           item.setAttribute('aria-pressed', String(selected));
         });
         nextButton.disabled = false;
+        clearStatus();
         emit('booking_slot_select', { modality: state.modality, date: state.date, time: formatTime(slot) });
       });
       slotsGrid.appendChild(button);
@@ -334,7 +349,7 @@
     $('[data-summary-date]').textContent = formatDateLong(state.date);
     $('[data-summary-time]').textContent = formatTime(state.time);
     $('[data-summary-name]').textContent = state.name;
-    $('[data-summary-phone]').textContent = state.phone;
+    $('[data-summary-phone]').textContent = formatPhone(state.phone);
     const emailRow = $('[data-summary-email-row]');
     $('[data-summary-email]').textContent = state.email || 'Não informado';
     emailRow.hidden = !state.email;
@@ -357,14 +372,25 @@
 
     if (error) {
       backButton.disabled = false;
-      if (String(error.message || '').includes('slot_unavailable')) {
+      const message = String(error.message || '');
+      if (message.includes('slot_unavailable')) {
+        state.time = '';
         currentStep = 2;
         renderStep();
         setStatus('Esse horário acabou de ser reservado. Escolha outro horário.');
-        if (state.date) selectDate(state.date);
+        return;
+      }
+      nextButton.disabled = false;
+      if (message.includes('too_many_bookings')) {
+        setStatus('Este número já tem agendamentos ativos. Para alterar, fale diretamente com Silvana.');
+      } else if (message.includes('invalid_phone')) {
+        setStatus('O WhatsApp informado não parece válido. Volte e confira o DDD e o número.');
+      } else if (message.includes('invalid_email')) {
+        setStatus('O e-mail informado não parece válido. Volte e confira.');
+      } else if (message.includes('booking_not_configured')) {
+        setStatus('A agenda ainda não está aberta para agendamentos.');
       } else {
-        nextButton.disabled = false;
-        setStatus('Não foi possível concluir o agendamento. Tente novamente.');
+        setStatus('Não foi possível concluir o agendamento. Verifique sua conexão e tente novamente.');
       }
       return;
     }
