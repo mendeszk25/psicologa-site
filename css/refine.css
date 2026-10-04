@@ -1,0 +1,75 @@
+/* Final visual refinement layer (loads last). Visual only. */
+:root{--cream:#F5F1E8;--paper:#F2EDE2;--text-soft:#5a5b54}
+body{position:relative}
+body:before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.02;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .4 0 0 0 0 .38 0 0 0 0 .3 0 0 0 .9 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+
+/* Legibility (+1/+2px) */
+.hero-intro{font-size:14px;line-height:1.6;color:#55564f;max-width:470px}
+.hero-note{font-size:11px;color:#77756b}
+.hero-primary{font-size:12px;min-height:46px}.text-action{font-size:12px;min-height:46px}
+.eyebrow{font-size:10.5px}
+.about-copy p,.approach-section p,.process p,.faq-intro>p:not(.eyebrow){font-size:13.5px;line-height:1.62;color:#55564f}
+.benefits p{font-size:12px;line-height:1.5;color:#5f605a}
+.topics article p,.topic-card p,.topics [class*=card] p{font-size:12.5px;line-height:1.5;color:#5f605a}
+.topics [class*=card] a,.topics [class*=card] .outline-link{font-size:11.5px;color:#43533E}
+.topics [class*=card] h3{font-size:22px}
+.topics [class*=card]{box-shadow:none;border-color:rgba(184,164,118,.14);background:rgba(248,245,238,.9)}
+.topics [class*=card]:hover{transform:none;box-shadow:none}
+.process [class*=step] h3{font-size:21px}
+.process [class*=step] p{font-size:12.5px;line-height:1.5;color:#5f605a}
+.faq-list summary{font-size:13.5px}
+.faq-list details>p{font-size:13px}
+.faq-list{background:rgba(248,245,238,.7)}
+.final-cta p:not(.eyebrow){font-size:14px;color:rgba(245,241,232,.86)}
+
+/* Atendimento: headline left + 2 horizontal cards right */
+@media(min-width:901px){
+ .care>.site-shell{display:grid;grid-template-columns:30% 1fr;gap:34px;align-items:center}
+ .care-head{display:block;text-align:left;padding:0}
+ .care-head h2{font-size:34px;line-height:1.08}
+ .care-head>p{margin-top:12px;font-size:13px;max-width:320px;color:#5f605a}
+ .care-grid{gap:16px}
+ .care-card{grid-template-columns:40% 60%;min-height:190px;border-color:rgba(184,164,118,.18)}
+ .care-card:hover{transform:none}.care-card:hover img{transform:none}
+ .care-card h3{font-size:21px}
+ .care-card-copy>p{font-size:12px;line-height:1.5;color:#5f605a}
+ .care-card .outline-link{font-size:11.5px}
+ .care-card figure img{object-position:50% 50%}
+ .care-card:nth-child(2) figure img{object-position:30% 50%}
+}
+/* Topic card crops differ */
+.topics article:nth-child(1) img,.topics [class*=card]:nth-child(1) img{object-position:50% 60%}
+.topics [class*=card]:nth-child(2) img{object-position:30% 40%}
+.topics [class*=card]:nth-child(3) img{object-position:70% 55%}
+.topics [class*=card]:nth-child(4) img{object-position:60% 50%}
+
+/* Hero: compact editorial */
+@media(min-width:901px){
+ .hero,.hero-grid,.portrait-frame,.hero-copy{min-height:500px}
+ .hero h1{font-size:56px;line-height:.98}.hero-accent em{font-size:48px}
+ .hero-grid{grid-template-columns:42% 58%}
+ .hero-portrait-picture img{object-position:50% 30%}
+}
+@media(min-width:1700px){.hero,.hero-grid,.portrait-frame,.hero-copy{min-height:540px}}
+@media(max-width:600px){
+ .hero-intro{font-size:14px}.hero-note{font-size:10.5px}
+ .hero-primary,.text-action{font-size:12px}
+ .about-copy p,.approach-section p{font-size:14px}
+ .care-card-copy>p{font-size:12.5px}
+}
+html,body{overflow-x:hidden}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(min-width:901px){
+ .care-card figure{position:relative;min-height:190px;height:100%;margin:0;display:block}
+ .care-card figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+ .care-head h2 br{display:none}
+ .care-head h2{font-size:32px}
+ .hero-portrait-picture img{object-position:50% 20%}
+}
+.decor-scene img{-webkit-mask-image:linear-gradient(to right,#000 70%,transparent 100%);mask-image:linear-gradient(to right,#000 70%,transparent 100%)}
+.decor-care img,.decor-about img{-webkit-mask-image:none;mask-image:none}
+.decor-care img{-webkit-mask-image:radial-gradient(ellipse at 40% 50%,#000 55%,transparent 82%);mask-image:radial-gradient(ellipse at 40% 50%,#000 55%,transparent 82%)}
+@media(min-width:901px){
+ .hero-portrait-picture{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 9%);mask-image:linear-gradient(to right,transparent 0,#000 9%)}
+ .hero-visual,.portrait-frame{background:transparent}
+}

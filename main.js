@@ -178,6 +178,16 @@
     });
   });
 
+  // Stagger discreto entre irmãos revelados juntos (máx. 4 passos de 70ms)
+  const staggerGroups = new Map();
+  doc.querySelectorAll('[data-reveal]').forEach((item) => {
+    const parent = item.parentElement;
+    if (!parent) return;
+    const index = staggerGroups.get(parent) || 0;
+    staggerGroups.set(parent, index + 1);
+    if (index > 0) item.style.setProperty('--reveal-delay', `${Math.min(index, 4) * 70}ms`);
+  });
+
   const revealItems = doc.querySelectorAll('[data-reveal]');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if ('IntersectionObserver' in window && !reducedMotion) {
@@ -187,7 +197,7 @@
         entry.target.classList.add('is-visible');
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -7% 0px' });
+    }, { threshold: 0.06, rootMargin: '0px 0px -6% 0px' });
     revealItems.forEach((item) => observer.observe(item));
   } else {
     revealItems.forEach((item) => item.classList.add('is-visible'));

@@ -1,0 +1,55 @@
+/* Hero rebuilt from the approved reference proportions. */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line-soft);background:var(--paper);min-height:500px}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:45% 55%;align-items:stretch;min-height:500px}
+.hero-copy{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:30px 30px 28px 0;max-width:505px}
+.hero-copy .eyebrow{margin-bottom:18px}.hero h1{font-size:64px;line-height:.92;letter-spacing:-.041em;max-width:7.15em}.hero-accent{display:block;margin-top:14px}.hero-accent em{font:italic 52px/.95 var(--serif);letter-spacing:-.035em;color:#66785b}
+.hero-intro{max-width:500px;margin-top:18px;font-size:12px;line-height:1.48;color:#66675f}.hero-actions{display:flex;align-items:center;gap:12px;margin-top:20px}.hero-primary{min-height:42px;padding:10px 20px;font-size:10px}.hero-primary svg{width:16px;height:16px}.text-action{display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:8px 17px;border:1px solid rgba(70,88,62,.2);border-radius:999px;font:400 9px/1 var(--sans);color:#53564f}.text-action-icon{display:grid;place-items:center;width:27px;height:27px;border:1px solid rgba(70,88,62,.26);border-radius:50%;color:var(--forest)}.text-action-icon svg{width:11px;height:11px}.hero-note{position:relative;margin-top:15px;padding-left:12px;font-size:7.5px;line-height:1.4;color:#8a887e}.hero-note:before{content:'';position:absolute;left:0;top:.55em;width:4px;height:4px;border-radius:50%;background:#77896b}
+.hero-visual{position:relative;min-width:0;display:flex;align-items:center;justify-content:flex-end}.portrait-frame{position:relative;width:100%;height:100%;min-height:500px;overflow:hidden}.hero-portrait-picture{position:absolute;inset:9px 0;display:block}.hero-portrait-picture img{width:100%;height:100%;object-fit:contain;object-position:center center}
+.hero-botanical{display:none!important}
+@media(min-width:1600px){.hero,.hero-grid{min-height:510px}.portrait-frame{min-height:510px}.hero h1{font-size:64px}.hero-accent em{font-size:52px}}
+@media(max-width:1100px){.hero,.hero-grid{min-height:510px}.portrait-frame{min-height:510px}.hero-copy{padding-right:24px}.hero h1{font-size:59px}.hero-accent em{font-size:49px}.hero-intro{font-size:11px}}
+@media(max-width:900px){.hero-grid{grid-template-columns:46% 54%}.hero h1{font-size:52px}.hero-accent em{font-size:44px}.hero-actions{flex-wrap:wrap}}
+@media(max-width:600px){.hero{min-height:0}.hero-grid{display:flex;flex-direction:column;min-height:0}.hero-copy{order:1;max-width:none;padding:38px 0 30px}.hero-copy .eyebrow{margin-bottom:14px}.hero h1{font-size:48px;line-height:.94;max-width:none}.hero-accent{margin-top:11px}.hero-accent em{font-size:43px}.hero-intro{font-size:11px;margin-top:16px}.hero-actions{margin-top:18px;gap:9px}.hero-primary{font-size:9px}.text-action{font-size:8.5px}.hero-note{font-size:7px}.hero-visual{order:2;margin-inline:-18px}.portrait-frame{min-height:0;height:auto;aspect-ratio:955/672}.hero-portrait-picture{position:absolute;inset:0}.hero-portrait-picture img{object-fit:cover}}
+
+/* =========================================================
+   HERO FULL-BLEED RIGHT — remove the visible rectangular stop
+   and let the visual field reach the viewport edge on desktop.
+   Functional structure is unchanged.
+   ========================================================= */
+@media (min-width:901px){
+  .hero-grid{
+    --hero-shell-gap:max(36px, calc((100vw - var(--container)) / 2));
+    overflow:visible;
+  }
+  .hero-visual{
+    width:calc(100% + var(--hero-shell-gap));
+    margin-right:calc(-1 * var(--hero-shell-gap));
+    overflow:hidden;
+    background:var(--paper);
+  }
+  .portrait-frame{
+    width:100%;
+    overflow:hidden;
+    background:var(--paper);
+  }
+  .hero-portrait-picture{
+    inset:0;
+  }
+  .hero-portrait-picture img{
+    width:100%;
+    height:100%;
+    max-width:none;
+    object-fit:cover;
+    object-position:50% 42%;
+  }
+}
+
+@media (min-width:1600px){
+  .hero,.hero-grid{min-height:580px}
+  .portrait-frame{min-height:580px}
+  .hero-copy{min-height:580px}
+  .hero-portrait-picture img{object-position:50% 36%}
+}
+@media (min-width:901px) and (max-width:1100px){
+  .hero-grid{--hero-shell-gap:max(24px, calc((100vw - var(--container)) / 2))}
+}

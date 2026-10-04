@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 620" fill="none">
+  <defs>
+    <linearGradient id="leafA" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6E7C5F"/><stop offset="1" stop-color="#A8B097"/></linearGradient>
+    <linearGradient id="leafB" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#879476"/><stop offset="1" stop-color="#C0C5AF"/></linearGradient>
+  </defs>
+  <path d="M52 610C72 534 82 471 105 397c28-91 62-175 117-259 26-39 51-73 83-111" stroke="#5C6A50" stroke-width="2.4" opacity=".9"/>
+  <path d="M92 468c-42-20-57-55-50-92 42 9 67 39 59 82-2 6-5 9-9 10Z" fill="url(#leafA)" stroke="#586749" stroke-width="1.1"/>
+  <path d="M103 426c8-47 33-72 70-77 2 46-21 76-62 84-4 0-7-2-8-7Z" fill="url(#leafB)" stroke="#667458" stroke-width="1.05"/>
+  <path d="M118 380c-40-20-51-53-42-86 40 10 61 38 53 77-2 6-5 9-11 9Z" fill="url(#leafA)" stroke="#586749" stroke-width="1.05"/>
+  <path d="M140 332c9-44 34-69 68-74 1 43-20 70-59 80-5 1-8-1-9-6Z" fill="url(#leafB)" stroke="#667458" stroke-width="1.05"/>
+  <path d="M158 286c-38-18-50-48-42-81 37 8 58 34 52 71-1 6-5 9-10 10Z" fill="url(#leafA)" stroke="#586749" stroke-width="1.05"/>
+  <path d="M184 239c10-40 31-62 63-67 2 39-16 65-53 73-5 1-8-1-10-6Z" fill="url(#leafB)" stroke="#667458" stroke-width="1.05"/>
+  <path d="M205 196c-31-18-40-44-33-72 32 7 50 30 43 62-1 6-4 9-10 10Z" fill="url(#leafA)" stroke="#586749" stroke-width="1.05"/>
+  <path d="M232 153c8-33 26-52 53-56 2 33-14 53-45 61-4 1-7-1-8-5Z" fill="url(#leafB)" stroke="#667458" stroke-width="1.05"/>
+  <path d="M256 117c-25-14-34-35-29-59 27 5 42 24 36 50-1 5-3 8-7 9Z" fill="url(#leafA)" stroke="#586749" stroke-width="1.05"/>
+  <g stroke="#526047" stroke-width=".72" opacity=".72">
+    <path d="M94 465 51 383M109 429l57-72M120 377 83 79" transform="translate(0 -74)"/>
+    <path d="M144 330l58-66M161 282l-40-69M188 237l53-59M207 193l-29-63M235 150l45-49M257 114l-23-51"/>
+  </g>
+  <g stroke="#B79B67" stroke-width="1.05" opacity=".92">
+    <path d="M69 360c-24-49-29-87-16-121M54 278l-23-17m25 4 18-27m-18 66-27-8"/>
+    <circle cx="30" cy="260" r="3.1" fill="#D1B97F"/><circle cx="75" cy="237" r="3.3" fill="#D1B97F"/><circle cx="28" cy="296" r="2.7" fill="#D1B97F"/>
+    <path d="M279 98c9-30 25-54 48-75m-21 30 7-25m-5 27 25-7"/>
+    <circle cx="314" cy="27" r="3" fill="#D1B97F"/><circle cx="335" cy="47" r="2.7" fill="#D1B97F"/>
+  </g>
+</svg>

@@ -1,0 +1,61 @@
+/* Botanical art direction layer — transparent SVG compositions, layered: paper > topography > mid plants > foreground sprigs */
+.decor-scene>img.vb{display:block!important;position:absolute;max-width:none;height:auto;-webkit-mask-image:none!important;mask-image:none!important;pointer-events:none;user-select:none}
+.decor-scene::before,.decor-scene::after{display:none!important;content:none!important}
+.decor-scene{overflow:hidden}
+/* paper materiality */
+body{background-image:radial-gradient(ellipse 60% 40% at 18% 12%,rgba(214,199,170,.10),transparent 70%),radial-gradient(ellipse 50% 35% at 85% 55%,rgba(142,155,131,.07),transparent 70%),radial-gradient(ellipse 55% 30% at 20% 88%,rgba(214,199,170,.09),transparent 70%)}
+body::before{opacity:.028!important}
+/* HERO */
+.decor-hero{z-index:3}
+.vb-hl{left:0;top:0;width:270px}
+.vb-hc{left:47.5%;bottom:0;width:150px;opacity:.9}
+.vb-hr{right:0;bottom:0;width:380px;z-index:4}
+/* BENEFITS stays quiet */
+/* ABOUT */
+.vb-al{left:0;bottom:0;width:330px}
+.vb-ar{right:0;top:0;width:440px}
+.vb-as{right:250px;bottom:60px;width:150px;opacity:.95}
+/* APPROACH */
+.vb-tl{left:0;top:0;width:640px;opacity:.9}
+.vb-apr{right:0;bottom:0;width:300px}
+/* TOPICS */
+.vb-tr{right:0;top:0;width:260px}
+.vb-tpl{left:0;bottom:0;width:200px;opacity:.85}
+/* PROCESS */
+.vb-pl{left:0;bottom:0;width:240px}
+.vb-pt{right:0;bottom:0;width:460px;opacity:.9}
+.process-line{top:92px!important;height:130px!important;left:5%!important;right:5%!important;opacity:1!important}
+.process-line img{object-fit:contain!important;filter:none!important;width:100%;height:100%}
+.timeline-marker::after{display:none!important}
+.timeline-marker{position:relative;z-index:2}
+/* CARE */
+.vb-cl{left:0;bottom:0;width:230px}
+/* FAQ */
+.vb-fr{right:0;bottom:0;width:320px}
+/* CTA */
+.final-cta{position:relative;overflow:hidden}
+.decor-final{z-index:0}
+.vb-fl{left:0;bottom:0;width:480px}
+.vb-frr{right:0;bottom:0;width:480px}
+.vb-fc{left:50%;bottom:0;width:420px;margin-left:-210px;opacity:.35}
+.final-cta .site-shell{position:relative;z-index:2}
+@media(max-width:1100px){.vb-hl{width:200px}.vb-hr{width:280px}.vb-al{width:240px}.vb-ar{width:320px}.vb-as{display:none}.vb-tl{width:480px}.vb-tr{width:200px}.vb-pt{width:340px}.vb-fl,.vb-frr{width:340px}}
+@media(max-width:600px){.vb-hl{width:120px;opacity:.75}.vb-hc,.vb-as,.vb-tpl,.vb-pt,.vb-fc{display:none}.vb-hr{width:170px}.vb-al{width:130px;opacity:.7}.vb-ar{width:170px;opacity:.7}.vb-tl{width:300px;opacity:.6}.vb-apr{width:130px}.vb-tr{width:110px;opacity:.7}.vb-pl{width:110px;opacity:.7}.vb-cl{width:110px;opacity:.7}.vb-fr{width:150px}.vb-fl,.vb-frr{width:210px;opacity:.7}}
+.final-cta::before,.final-cta-leaf{display:none!important}
+.decor-final>img.vb{z-index:1}
+.vb-fl{width:310px!important;left:-20px!important;opacity:.75}
+.vb-fc{opacity:.28}
+/* edge-aware placement: plants enter from the viewport edge and never cover copy at narrower desktop widths */
+:root{--g:max(48px,calc((100vw - 1450px)/2))}
+@media(min-width:1101px){
+ .vb-hl{--w:270px;--a:36px;width:var(--w);left:min(0px,calc(var(--g) + var(--a) - var(--w)))}
+ .vb-pl{--w:240px;--a:40px;width:var(--w);left:min(0px,calc(var(--g) + var(--a) - var(--w)))}
+ .vb-cl{--w:230px;--a:36px;width:var(--w);left:min(0px,calc(var(--g) + var(--a) - var(--w)))}
+ .vb-fl{--w:310px;--a:40px;width:var(--w)!important;left:min(-20px,calc(var(--g) + var(--a) - var(--w)))!important}
+ .vb-ar{--w:440px;--a:210px;width:var(--w);right:min(0px,calc(var(--g) + var(--a) - var(--w)))}
+ .vb-tr{--w:260px;--a:130px;width:var(--w);right:min(0px,calc(var(--g) + var(--a) - var(--w)))}
+ .vb-apr{--w:300px;--a:130px;width:var(--w);right:min(0px,calc(var(--g) + var(--a) - var(--w)))}
+ .vb-fr{--w:320px;--a:90px;width:var(--w);right:min(0px,calc(var(--g) + var(--a) - var(--w)))}
+ .vb-frr{--w:480px;--a:60px;width:var(--w)!important;right:min(0px,calc(var(--g) + var(--a) - var(--w)))!important}
+ .vb-as{right:calc(var(--g) + 36px)}
+}

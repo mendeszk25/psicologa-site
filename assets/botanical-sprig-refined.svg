@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 420" fill="none">
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M116 406C112 350 119 294 132 245C147 190 161 143 158 88C157 65 161 42 174 19" stroke="#5F6E58" stroke-width="1.8"/>
+    <path d="M130 251C99 235 77 212 65 183" stroke="#72806B" stroke-width="1.25"/>
+    <path d="M143 204C172 190 194 171 208 146" stroke="#72806B" stroke-width="1.25"/>
+    <path d="M153 157C126 143 107 124 96 99" stroke="#72806B" stroke-width="1.2"/>
+    <path d="M158 111C183 99 201 84 213 62" stroke="#9A8156" stroke-width="1.05"/>
+    <path d="M159 74C143 59 136 45 135 29" stroke="#72806B" stroke-width="1.05"/>
+
+    <g stroke="#5F6E58" stroke-width="1.05">
+      <path d="M68 184C43 179 27 160 28 137C52 135 72 147 83 169C79 176 74 181 68 184Z" fill="#AEB8A4" fill-opacity=".34"/>
+      <path d="M112 235C88 230 72 212 72 190C96 188 115 200 124 220C122 227 118 232 112 235Z" fill="#C2C9BA" fill-opacity=".42"/>
+      <path d="M144 202C168 198 185 183 190 162C166 158 147 168 136 187C138 194 140 199 144 202Z" fill="#8F9D85" fill-opacity=".28"/>
+      <path d="M152 156C129 150 116 134 119 113C142 115 158 128 163 147C160 151 156 154 152 156Z" fill="#B7C0AF" fill-opacity=".38"/>
+      <path d="M160 111C181 107 196 94 201 75C181 71 164 79 155 96C156 102 157 107 160 111Z" fill="#98A58F" fill-opacity=".30"/>
+      <path d="M160 76C142 68 133 55 136 38C154 41 166 51 170 66C167 71 164 74 160 76Z" fill="#C6CCBE" fill-opacity=".38"/>
+      <path d="M208 147C227 145 241 134 247 117C229 111 213 118 203 132C203 138 205 143 208 147Z" fill="#AEB8A4" fill-opacity=".30"/>
+      <path d="M96 100C78 97 66 85 65 68C83 65 98 73 107 88C104 94 101 98 96 100Z" fill="#98A58F" fill-opacity=".27"/>
+    </g>
+
+    <g stroke="#718067" stroke-width=".55" opacity=".7">
+      <path d="M31 139C46 151 59 162 78 171"/><path d="M75 192C88 204 101 215 120 221"/>
+      <path d="M188 164C170 171 154 180 138 190"/><path d="M122 115C133 128 144 138 159 147"/>
+      <path d="M199 77C183 84 169 92 157 100"/><path d="M138 40C146 50 154 58 168 66"/>
+      <path d="M244 119C230 124 217 131 205 138"/><path d="M67 69C78 77 89 83 104 89"/>
+    </g>
+
+    <g stroke="#B79B67" stroke-width="1" opacity=".8">
+      <path d="M65 184C54 201 49 218 50 236"/><ellipse cx="50" cy="242" rx="3.8" ry="6.5" transform="rotate(-8 50 242)"/>
+      <path d="M213 62C221 50 226 38 227 25"/><ellipse cx="228" cy="20" rx="3.3" ry="5.8" transform="rotate(15 228 20)"/>
+    </g>
+  </g>
+</svg>
