@@ -1,0 +1,852 @@
+/* Mobile reference implementation — scoped to the public site only.
+   Desktop (>=768px), admin, booking logic and application behavior remain unchanged. */
+@media (max-width: 767px){
+  :root{
+    --mobile-pad:18px;
+    --mobile-radius:16px;
+    --mobile-card:#faf6ee;
+    --mobile-border:rgba(181,154,103,.22);
+  }
+
+  html,body{overflow-x:hidden}
+  body{background:#f7f1e6;font-size:14px;line-height:1.52}
+  main{overflow:hidden}
+  .site-shell{width:calc(100% - (var(--mobile-pad) * 2));max-width:none;margin-inline:auto}
+  .eyebrow{font-size:9.5px!important;line-height:1.2;letter-spacing:.24em!important;font-weight:600;margin-bottom:11px!important}
+
+  /* Header — compact, premium, matching the reference composition. */
+  .site-header{background:rgba(250,246,238,.985);border-bottom:1px solid rgba(181,154,103,.18)}
+  .header-inner{width:calc(100% - 28px);min-height:72px!important;gap:10px!important}
+  .brand{gap:8px;min-width:0}
+  .brand-mark svg{width:26px;height:30px}
+  .brand-name{font-size:20px!important;line-height:.95}
+  .brand-role{font-size:5.6px!important;letter-spacing:.18em!important;margin-top:4px}
+  .button-header,.main-nav{display:none!important}
+  .menu-toggle{display:flex!important;align-items:center;gap:9px;padding:10px 0 10px 12px;border:0;background:transparent;color:#344536;font:400 15px/1 var(--serif)}
+  .menu-toggle i,.menu-toggle i::before,.menu-toggle i::after{display:block;width:18px;height:1px;background:#52614c;content:'';position:relative}
+  .menu-toggle i::before{position:absolute;top:-6px;left:0}
+  .menu-toggle i::after{position:absolute;top:6px;left:0}
+
+  /* Hero — portrait first, then editorial copy. */
+  .hero{min-height:0!important;background:#f7f1e6;border-bottom:0;overflow:hidden}
+  .hero-grid{display:flex!important;flex-direction:column!important;width:100%!important;min-height:0!important}
+  .hero-visual{order:0!important;width:100%!important;margin:0!important;padding:0 10px!important;overflow:visible!important;background:transparent!important}
+  .portrait-frame{width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:1.34/1!important;overflow:hidden!important;background:transparent!important;border-radius:0 0 46% 46% / 0 0 12% 12%}
+  .hero-portrait-picture{position:absolute!important;inset:0!important}
+  .hero-portrait-picture img{width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:50% 44%!important;filter:saturate(.95) contrast(.99)!important}
+  .hero-copy{order:1!important;max-width:none!important;min-height:0!important;width:calc(100% - 36px)!important;margin-inline:auto!important;padding:28px 0 34px!important;display:block!important}
+  .hero-copy .eyebrow{margin-bottom:13px!important}
+  .hero h1{font-size:clamp(39px,10.8vw,44px)!important;line-height:1.01!important;letter-spacing:-.038em!important;max-width:100%!important}
+  .hero h1 br{display:none}
+  .hero-accent{display:block;margin-top:7px!important}
+  .hero-accent em{font-size:clamp(35px,9.8vw,40px)!important;line-height:1!important;color:#64765a}
+  .hero-intro{font-size:15px!important;line-height:1.56!important;max-width:none!important;margin-top:18px!important;color:#62645d}
+  .hero-actions{display:grid!important;grid-template-columns:1fr!important;gap:9px!important;margin-top:22px!important;width:100%}
+  .hero-primary,.text-action{width:100%!important;min-height:54px!important;border-radius:999px!important;font-size:14px!important}
+  .hero-primary{padding:12px 18px!important}
+  .text-action{justify-content:center!important;padding:10px 18px!important;border-color:rgba(67,83,62,.30)!important}
+  .text-action-icon{width:28px;height:28px}
+  .hero-note{font-size:10.5px!important;line-height:1.45!important;margin-top:14px!important;padding-left:12px!important;color:#7f8078}
+  .hero-note:before{width:4px;height:4px}
+  .decor-scene.decor-hero{display:none!important}
+  .hero-visual::before{display:none!important}
+
+  /* Benefit band — true 2x2 mobile module, like the reference. */
+  .benefits{padding:34px 0 38px!important;background:rgba(250,246,238,.78)!important;border-top:1px solid rgba(181,154,103,.14);border-bottom:1px solid rgba(181,154,103,.16)}
+  .benefits .benefits-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:26px 18px!important;padding:0!important;min-height:0!important}
+  .benefits article{display:block!important;max-height:none!important;padding:0!important;border:0!important;min-width:0}
+  .benefit-icon{width:48px!important;height:48px!important;margin:0 0 10px!important;background:#f0e9db!important;box-shadow:inset 0 0 0 1px rgba(181,154,103,.12)!important}
+  .benefit-icon svg{width:24px!important;height:24px!important}
+  .benefits h2{font-size:18px!important;line-height:1.08!important;margin:0 0 6px!important}
+  .benefits p{font-size:12.5px!important;line-height:1.43!important;max-width:none!important;color:#686a63!important}
+
+  /* About — text-led on mobile; portrait is intentionally not repeated. */
+  .about{padding:66px 0 62px!important;background:rgba(250,246,238,.28)!important}
+  .about-grid{display:flex!important;flex-direction:column!important;gap:0!important}
+  .portrait-collage{display:none!important}
+  .about-copy{order:1!important;width:100%!important;padding:0!important}
+  .about h2{font-size:clamp(36px,10.2vw,40px)!important;line-height:1.02!important;letter-spacing:-.035em!important;max-width:100%!important;margin:0 0 20px!important}
+  .about h2 br{display:none}
+  .about-copy>p:not(.eyebrow){font-size:14px!important;line-height:1.58!important;max-width:none!important;margin:0 0 14px!important;color:#62645d!important}
+  .about-copy .outline-link{min-height:44px!important;padding:9px 17px!important;font-size:11px!important;margin-top:8px!important}
+  .about-aside{display:block!important;order:2!important;position:relative!important;min-height:92px!important;width:100%!important;margin-top:24px!important;padding:18px 20px 18px 58px!important;border:1px solid rgba(181,154,103,.20)!important;border-radius:14px!important;background:rgba(248,243,233,.78)!important}
+  .about-handwritten{position:static!important;display:block!important;font-size:21px!important;line-height:1.05!important;color:#617158!important}
+  .about-handwritten::before{content:'“';position:absolute;left:18px;top:12px;width:auto!important;height:auto!important;margin:0!important;background:none!important;font:italic 400 44px/1 var(--serif);color:#c0a66f}
+  .decor-about .vb-ar{width:92px!important;height:116px!important;right:-8px!important;top:8px!important;opacity:.5!important;object-fit:contain!important;mask-image:none!important;-webkit-mask-image:none!important}
+  .decor-about .vb-al,.decor-about .vb-as{display:none!important}
+
+  /* Integrative approach — simple editorial block with subtle topology. */
+  .approach-section{padding:0!important;background:rgba(250,246,238,.38)!important}
+  .approach{display:block!important;min-height:0!important;padding:58px 0 62px!important}
+  .approach h3{font-size:clamp(35px,9.8vw,39px)!important;line-height:1.03!important;max-width:100%!important;margin-bottom:20px!important}
+  .approach h3 br{display:none}
+  .approach>p{font-size:14px!important;line-height:1.6!important;max-width:none!important;color:#64665f!important}
+  .decor-approach .vb-tl{width:300px!important;height:190px!important;left:-90px!important;top:-35px!important;opacity:.18!important;object-fit:contain!important;mask-image:none!important;-webkit-mask-image:none!important}
+  .decor-approach .vb-apr{width:88px!important;height:110px!important;right:-12px!important;bottom:-16px!important;opacity:.52!important;object-fit:contain!important}
+
+  /* Topics — compact horizontal cards matching the approved mobile reference. */
+  .topics{padding:62px 0 64px!important;background:rgba(250,246,238,.20)!important}
+  .topics-head{text-align:left!important;margin-bottom:24px!important;padding-right:38px}
+  .topics h2{font-size:clamp(35px,9.6vw,39px)!important;line-height:1.02!important;max-width:9.5em}
+  .topics .topics-grid{display:grid!important;grid-template-columns:1fr!important;gap:9px!important;overflow:visible!important;padding:0!important}
+  .topics article{display:grid!important;grid-template-columns:minmax(0,1.4fr) minmax(112px,.9fr)!important;grid-template-rows:auto 1fr auto!important;column-gap:12px!important;min-height:112px!important;width:100%!important;max-width:100%!important;padding:13px 10px 13px 14px!important;border:1px solid var(--mobile-border)!important;border-radius:13px!important;background:rgba(250,247,240,.92)!important;overflow:hidden!important}
+  .topics .topic-media{grid-column:2!important;grid-row:1 / 4!important;width:100%!important;height:100%!important;min-height:86px!important;border-radius:10px!important;overflow:hidden!important;align-self:stretch}
+  .topics .topic-media img{width:100%!important;height:100%!important;object-fit:cover!important;transform:none!important;filter:saturate(.88) contrast(.99) brightness(1.02)!important}
+  .topics h3{grid-column:1!important;grid-row:1!important;font-size:17px!important;line-height:1.08!important;margin:0 0 5px!important;align-self:start}
+  .topics article p{grid-column:1!important;grid-row:2!important;min-height:0!important;margin:0!important;font-size:11.5px!important;line-height:1.38!important;color:#696a63!important}
+  .topics article:after{grid-column:1!important;grid-row:3!important;align-self:end;content:'Saber mais  →'!important;margin:7px 0 0!important;font-size:10.5px!important;line-height:1.2!important;color:#46583e!important}
+  .decor-topics .vb-tr{width:80px!important;height:112px!important;right:-6px!important;top:8px!important;opacity:.46!important;object-fit:contain!important;mask-image:none!important;-webkit-mask-image:none!important}
+  .decor-topics .vb-tpl{display:none!important}
+
+  /* Process — vertical organic timeline. */
+  .process{padding:62px 0 58px!important;background:rgba(250,246,238,.30)!important}
+  .process-head{text-align:left!important;margin-bottom:28px!important}
+  .process h2{font-size:clamp(35px,9.6vw,39px)!important;line-height:1.02!important}
+  .process-line{display:none!important}
+  .process .timeline{display:block!important;position:relative!important;padding:2px 0 0!important;margin:0!important}
+  .process .timeline::before{content:''!important;position:absolute!important;left:19px!important;top:18px!important;bottom:30px!important;width:1px!important;background:linear-gradient(to bottom,rgba(192,164,109,.35),#bda16b 10%,#c8ae76 90%,rgba(192,164,109,.2))!important;transform:none!important}
+  .process .timeline li{display:grid!important;grid-template-columns:48px 1fr!important;gap:11px!important;position:relative!important;text-align:left!important;min-height:0!important;padding:0 0 27px!important;margin:0!important}
+  .process .timeline li:last-child{padding-bottom:0!important}
+  .process .timeline-marker{grid-column:1!important;position:relative!important;left:auto!important;top:auto!important;width:38px!important;height:38px!important;margin:0!important;border-radius:50%!important;background:#c5a96e!important;box-shadow:0 0 0 5px #f7f1e6!important;z-index:2!important;font-size:10px!important}
+  .process .timeline-marker::after{display:none!important}
+  .process .timeline-copy{grid-column:2!important;padding-top:2px}
+  .process .timeline h3{font-size:18px!important;line-height:1.08!important;margin:0 0 5px!important}
+  .process .timeline p{font-size:12.5px!important;line-height:1.43!important;margin:0!important;max-width:none!important;color:#666861!important}
+  .process .timeline li::after{content:''!important;position:absolute!important;left:8px!important;bottom:3px!important;width:28px!important;height:28px!important;background:var(--sp) center/contain no-repeat!important;opacity:.9}
+  .process .timeline li:nth-child(1){--sp:url(../assets/art/sprout-1.webp)}
+  .process .timeline li:nth-child(2){--sp:url(../assets/art/sprout-2.webp)}
+  .process .timeline li:nth-child(3){--sp:url(../assets/art/sprout-3.webp)}
+  .process .timeline li:nth-child(4){--sp:url(../assets/art/sprout-4.webp)}
+  .decor-process .vb-pl{display:none!important}
+  .decor-process .vb-pt{width:170px!important;height:150px!important;right:-55px!important;bottom:-35px!important;opacity:.16!important;object-fit:contain!important;mask-image:none!important;-webkit-mask-image:none!important}
+
+  /* Care / appointment format — two editorial cards at >=375, one below. */
+  .care{padding:62px 0 66px!important;background:rgba(250,246,238,.18)!important}
+  .care>.site-shell{display:block!important}
+  .care-head{padding:0!important;text-align:left!important;margin-bottom:24px!important}
+  .care h2,.care-head h2{font-size:clamp(35px,9.6vw,39px)!important;line-height:1.02!important}
+  .care-head h2 br{display:none!important}
+  .care-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  .care-card{display:flex!important;flex-direction:column!important;min-height:0!important;border:1px solid var(--mobile-border)!important;border-radius:13px!important;background:rgba(250,247,240,.92)!important;overflow:hidden!important}
+  .care-card figure{height:112px!important;min-height:112px!important;position:relative!important}
+  .care-card img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;transform:none!important}
+  .care-card-copy{padding:13px 12px 14px!important;align-self:auto!important}
+  .care-card h3{font-size:16px!important;line-height:1.08!important;margin:0!important}
+  .care-card-copy>p{font-size:10.5px!important;line-height:1.4!important;margin-top:7px!important;color:#686a63!important}
+  .care-card .fine-print{display:none!important}
+  .care-card .outline-link{font-size:10px!important;margin-top:9px!important;min-height:0!important;padding:0!important;border:0!important;justify-content:flex-start!important}
+  .decor-care .vb-cl{width:72px!important;height:98px!important;left:-12px!important;bottom:0!important;opacity:.42!important;object-fit:contain!important}
+
+  /* FAQ — calm compact accordion. */
+  .faq-section{padding:62px 0 68px!important;background:rgba(250,246,238,.26)!important}
+  .faq-grid{display:block!important;max-width:none!important}
+  .faq-intro h2{font-size:clamp(34px,9.5vw,38px)!important;line-height:1.02!important}
+  .faq-intro>p:not(.eyebrow){font-size:13.5px!important;line-height:1.55!important;max-width:none!important;margin-top:15px!important}
+  .faq-intro .button{min-height:44px!important;margin-top:20px!important;padding:9px 17px!important;font-size:12px!important;background:transparent!important;color:#292a24!important}
+  .faq-list{margin-top:24px!important;padding:6px 12px!important;border:1px solid rgba(181,154,103,.18)!important;border-radius:12px!important;background:rgba(248,243,233,.80)!important}
+  .faq-list details{border-bottom-color:rgba(116,114,104,.15)!important}
+  .faq-list summary{min-height:51px!important;padding:11px 4px!important;font-size:12.5px!important;line-height:1.3!important;font-weight:500!important}
+  .faq-list summary span:after{font-size:18px!important;font-weight:300!important}
+  .faq-list details>p{font-size:12px!important;line-height:1.5!important;padding:2px 24px 14px 4px!important}
+  .decor-faq .vb-fr{width:80px!important;height:105px!important;right:-10px!important;bottom:-2px!important;opacity:.38!important;object-fit:contain!important}
+
+  /* Final contact band — faithful to the green reference panel. */
+  .final-cta{min-height:0!important;padding:36px 0 78px!important;background:#405337!important;color:#f8f3e9!important}
+  .final-cta-inner{display:block!important;width:calc(100% - 36px)!important;max-width:none!important;text-align:center!important}
+  .final-cta .eyebrow{font-size:9px!important;letter-spacing:.24em!important;margin-bottom:10px!important;color:#f8f3e9!important}
+  .final-cta h2{font-size:37px!important;line-height:1!important}
+  .final-cta p:not(.eyebrow){font-size:12.5px!important;line-height:1.48!important;max-width:300px!important;margin:11px auto 0!important;color:rgba(248,243,233,.88)!important}
+  .final-cta .button-light{width:76%!important;min-height:49px!important;margin:20px auto 0!important;font-size:12px!important;border-radius:999px!important}
+  .decor-final .vb-fl,.decor-final .vb-frr{width:155px!important;height:92px!important;bottom:-8px!important;opacity:.34!important;object-fit:contain!important;mask-image:none!important;-webkit-mask-image:none!important}
+  .decor-final .vb-fl{left:-20px!important}.decor-final .vb-frr{right:-20px!important}
+
+  /* Footer — centered, compact, and editorial. */
+  .site-footer{padding:26px 0 28px!important;background:#f8f4ec!important}
+  .footer-inner{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:17px!important;text-align:center!important;width:calc(100% - 36px)!important}
+  .brand-footer{justify-content:center!important}
+  .brand-footer .brand-name{font-size:20px!important}.brand-footer .brand-role{font-size:6px!important}
+  .footer-nav{display:flex!important;justify-content:center!important;gap:10px 15px!important;flex-wrap:wrap!important;font-size:10px!important;line-height:1.3}
+  .footer-meta{display:flex!important;justify-content:center!important;gap:10px 12px!important;max-width:310px!important;font-size:9px!important;line-height:1.35!important}
+  .social-link svg{width:30px!important;height:30px!important;padding:6px!important}
+  .admin-access-link{font-size:9px!important}
+
+  /* Decorative restraint / safety. */
+  .decor-scene{overflow:hidden!important}
+  .decor-scene>img.vb{pointer-events:none!important;user-select:none!important}
+  .about,.approach-section,.topics,.process,.care,.faq-section{overflow:hidden!important}
+}
+
+@media (max-width: 359px){
+  :root{--mobile-pad:15px}
+  .header-inner{width:calc(100% - 24px)}
+  .brand-name{font-size:18px!important}.brand-role{font-size:5.2px!important}.menu-toggle{font-size:14px!important}
+  .hero-visual{padding:0 7px!important}
+  .hero-copy{width:calc(100% - 30px)!important;padding-top:24px!important}
+  .hero h1{font-size:37px!important}.hero-accent em{font-size:34px!important}
+  .hero-intro{font-size:14px!important}
+  .benefits .benefits-grid{gap:24px 12px!important}.benefits p{font-size:12px!important}
+  .about h2,.approach h3,.topics h2,.process h2,.care h2,.faq-intro h2{font-size:34px!important}
+  .topics article{grid-template-columns:minmax(0,1.25fr) 108px!important;column-gap:9px!important;padding-left:12px!important}
+  .topics h3{font-size:16px!important}.topics article p{font-size:11px!important}
+  .care-grid{grid-template-columns:1fr!important;gap:12px!important}
+  .care-card figure{height:150px!important}
+  .care-card h3{font-size:17px!important}.care-card-copy>p{font-size:11.5px!important}
+  .final-cta .button-light{width:88%!important}
+}
+
+@media (min-width: 360px) and (max-width: 374px){
+  .care-grid{grid-template-columns:1fr!important}
+  .care-card figure{height:155px!important}
+}
+
+/* =========================================================
+   V5 — stronger mobile nature presence
+   Keep the approved mobile layout; enlarge and reintroduce
+   botanical edge compositions without covering copy/actions.
+   ========================================================= */
+@media (max-width: 767px){
+  /* Hero: keep the portrait-first composition, but frame it with
+     taller botanical strokes at the outer edges. */
+  .decor-scene.decor-hero{
+    display:block!important;
+    inset:0 0 auto!important;
+    height:clamp(255px,74vw,310px)!important;
+    overflow:hidden!important;
+    z-index:3!important;
+  }
+  .decor-hero .vb-hl{
+    display:block!important;
+    width:clamp(88px,27vw,112px)!important;
+    height:clamp(215px,62vw,260px)!important;
+    left:-18px!important;
+    top:-8px!important;
+    object-fit:contain!important;
+    object-position:left top!important;
+    opacity:.72!important;
+    -webkit-mask-image:linear-gradient(to bottom,#000 76%,transparent 100%)!important;
+    mask-image:linear-gradient(to bottom,#000 76%,transparent 100%)!important;
+  }
+  .decor-hero .vb-hr{
+    display:block!important;
+    width:clamp(118px,34vw,145px)!important;
+    height:clamp(132px,38vw,165px)!important;
+    right:-18px!important;
+    left:auto!important;
+    top:auto!important;
+    bottom:-5px!important;
+    object-fit:contain!important;
+    object-position:right bottom!important;
+    opacity:.78!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+  }
+
+  /* Benefits: subtle botanical corners, enough to carry the nature
+     language into the band without competing with the 2x2 content. */
+  .benefits{position:relative!important;overflow:hidden!important}
+  .benefits::before,.benefits::after{
+    content:''!important;
+    display:block!important;
+    position:absolute!important;
+    width:76px!important;
+    height:126px!important;
+    pointer-events:none!important;
+    background-repeat:no-repeat!important;
+    background-size:contain!important;
+    opacity:.24!important;
+    z-index:0!important;
+  }
+  .benefits::before{
+    left:-34px!important;
+    bottom:-32px!important;
+    background-image:url('../assets/art/about-left.webp')!important;
+    background-position:left bottom!important;
+  }
+  .benefits::after{
+    right:-32px!important;
+    top:-26px!important;
+    background-image:url('../assets/art/about-right.webp')!important;
+    background-position:right top!important;
+  }
+  .benefits-grid{position:relative;z-index:1}
+
+  /* About: two-sided botanical framing. The copy remains dominant. */
+  .decor-about .vb-ar{
+    width:clamp(118px,35vw,146px)!important;
+    height:clamp(154px,45vw,188px)!important;
+    right:-18px!important;
+    top:-3px!important;
+    opacity:.64!important;
+    object-fit:contain!important;
+    object-position:right top!important;
+  }
+  .decor-about .vb-al{
+    display:block!important;
+    width:clamp(82px,25vw,104px)!important;
+    height:clamp(136px,40vw,170px)!important;
+    left:-28px!important;
+    bottom:-14px!important;
+    top:auto!important;
+    opacity:.42!important;
+    object-fit:contain!important;
+    object-position:left bottom!important;
+    -webkit-mask-image:linear-gradient(to top,#000 70%,transparent 100%)!important;
+    mask-image:linear-gradient(to top,#000 70%,transparent 100%)!important;
+  }
+  .decor-about .vb-as{
+    display:block!important;
+    width:44px!important;
+    height:92px!important;
+    right:10px!important;
+    bottom:18px!important;
+    opacity:.35!important;
+    object-fit:contain!important;
+  }
+
+  /* Approach: stronger right sprig, while the topographic field stays soft. */
+  .decor-approach .vb-tl{
+    width:340px!important;
+    height:205px!important;
+    left:-110px!important;
+    top:-38px!important;
+    opacity:.20!important;
+  }
+  .decor-approach .vb-apr{
+    width:clamp(108px,32vw,132px)!important;
+    height:clamp(150px,44vw,180px)!important;
+    right:-20px!important;
+    bottom:-24px!important;
+    opacity:.60!important;
+    object-fit:contain!important;
+    object-position:right bottom!important;
+  }
+
+  /* Topics: larger right branch + a small lower-left counterweight. */
+  .decor-topics .vb-tr{
+    width:clamp(108px,32vw,134px)!important;
+    height:clamp(166px,47vw,198px)!important;
+    right:-20px!important;
+    top:-6px!important;
+    opacity:.60!important;
+    object-fit:contain!important;
+    object-position:right top!important;
+  }
+  .decor-topics .vb-tpl{
+    display:block!important;
+    width:clamp(58px,18vw,76px)!important;
+    height:clamp(92px,27vw,118px)!important;
+    left:-18px!important;
+    bottom:-20px!important;
+    top:auto!important;
+    opacity:.32!important;
+    object-fit:contain!important;
+    object-position:left bottom!important;
+  }
+
+  /* Process: retain the vertical path and add one larger natural edge moment. */
+  .decor-process .vb-pl{
+    display:block!important;
+    width:clamp(72px,22vw,92px)!important;
+    height:clamp(122px,36vw,154px)!important;
+    right:-22px!important;
+    left:auto!important;
+    bottom:-5px!important;
+    top:auto!important;
+    transform:scaleX(-1)!important;
+    opacity:.46!important;
+    object-fit:contain!important;
+    object-position:left bottom!important;
+    -webkit-mask-image:linear-gradient(to top,#000 74%,transparent 100%)!important;
+    mask-image:linear-gradient(to top,#000 74%,transparent 100%)!important;
+  }
+  .decor-process .vb-pt{
+    width:200px!important;
+    height:170px!important;
+    right:-72px!important;
+    bottom:-42px!important;
+    opacity:.17!important;
+  }
+
+  /* Attendance: a noticeably larger leaf group entering from the left. */
+  .decor-care .vb-cl{
+    width:clamp(88px,27vw,112px)!important;
+    height:clamp(132px,39vw,164px)!important;
+    left:-24px!important;
+    bottom:-10px!important;
+    opacity:.50!important;
+    object-fit:contain!important;
+    object-position:left bottom!important;
+    -webkit-mask-image:linear-gradient(to top,#000 72%,transparent 100%)!important;
+    mask-image:linear-gradient(to top,#000 72%,transparent 100%)!important;
+  }
+
+  /* FAQ: let the right branch read as an intentional closing flourish. */
+  .decor-faq .vb-fr{
+    width:clamp(98px,30vw,124px)!important;
+    height:clamp(140px,42vw,172px)!important;
+    right:-24px!important;
+    bottom:-12px!important;
+    opacity:.50!important;
+    object-fit:contain!important;
+    object-position:right bottom!important;
+  }
+
+  /* CTA: larger but still low-contrast, anchored in the lower third. */
+  .final-cta{padding-bottom:92px!important}
+  .decor-final .vb-fl,.decor-final .vb-frr{
+    width:clamp(180px,52vw,216px)!important;
+    height:clamp(104px,31vw,128px)!important;
+    bottom:-10px!important;
+    opacity:.46!important;
+  }
+  .decor-final .vb-fl{left:-28px!important}
+  .decor-final .vb-frr{right:-28px!important}
+}
+
+/* Keep the extra nature compact on very narrow devices. */
+@media (max-width: 359px){
+  .decor-hero .vb-hl{left:-26px!important;opacity:.60!important}
+  .decor-hero .vb-hr{right:-26px!important;opacity:.68!important}
+  .decor-about .vb-ar{right:-28px!important;opacity:.55!important}
+  .decor-about .vb-al{left:-34px!important;opacity:.34!important}
+  .decor-topics .vb-tr,.decor-faq .vb-fr{right:-30px!important}
+  .decor-care .vb-cl{left:-30px!important}
+}
+
+/* =========================================================
+   V6 — larger mobile nature decorations
+   User-requested correction: make the botanical artwork MORE
+   present across the mobile page (not smaller), while keeping
+   all copy, controls and portraits unobstructed.
+   ========================================================= */
+@media (max-width: 767px){
+  /* Keep section content above the enlarged edge artwork. */
+  .hero-grid,
+  .benefits-grid,
+  .about-grid,
+  .approach,
+  .topics>.site-shell,
+  .process>.site-shell,
+  .care>.site-shell,
+  .faq-grid,
+  .final-cta-inner{
+    position:relative!important;
+    z-index:2!important;
+  }
+
+  /* HERO — substantially larger framing foliage on both sides. */
+  .decor-scene.decor-hero{
+    display:block!important;
+    height:clamp(286px,82vw,344px)!important;
+    overflow:hidden!important;
+    z-index:3!important;
+  }
+  .decor-hero .vb-hl{
+    display:block!important;
+    width:clamp(118px,35vw,148px)!important;
+    height:clamp(260px,76vw,318px)!important;
+    left:-24px!important;
+    top:-10px!important;
+    opacity:.84!important;
+    object-fit:contain!important;
+    object-position:left top!important;
+    -webkit-mask-image:linear-gradient(to bottom,#000 88%,transparent 100%)!important;
+    mask-image:linear-gradient(to bottom,#000 88%,transparent 100%)!important;
+  }
+  .decor-hero .vb-hr{
+    display:block!important;
+    width:clamp(154px,44vw,188px)!important;
+    height:clamp(172px,50vw,212px)!important;
+    right:-24px!important;
+    bottom:-8px!important;
+    opacity:.88!important;
+    object-fit:contain!important;
+    object-position:right bottom!important;
+  }
+  /* Extra small botanical accent lower in the hero copy. */
+  .hero-copy{position:relative!important;isolation:isolate}
+  .hero-copy::after{
+    content:''!important;
+    display:block!important;
+    position:absolute!important;
+    right:-34px!important;
+    bottom:-6px!important;
+    width:88px!important;
+    height:154px!important;
+    background:url('../assets/art/about-seeds.webp') right bottom/contain no-repeat!important;
+    opacity:.28!important;
+    pointer-events:none!important;
+    z-index:-1!important;
+  }
+
+  /* BENEFITS — larger botanical corners, clearly visible between sections. */
+  .benefits::before,.benefits::after{
+    width:clamp(96px,29vw,120px)!important;
+    height:clamp(154px,45vw,188px)!important;
+    opacity:.34!important;
+  }
+  .benefits::before{left:-36px!important;bottom:-44px!important}
+  .benefits::after{right:-38px!important;top:-38px!important}
+
+  /* ABOUT — strong two-sided nature frame plus a visible seed sprig. */
+  .decor-about .vb-ar{
+    display:block!important;
+    width:clamp(164px,47vw,198px)!important;
+    height:clamp(220px,64vw,268px)!important;
+    right:-34px!important;
+    top:-14px!important;
+    opacity:.76!important;
+    object-fit:contain!important;
+    object-position:right top!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+  }
+  .decor-about .vb-al{
+    display:block!important;
+    width:clamp(118px,35vw,146px)!important;
+    height:clamp(192px,56vw,232px)!important;
+    left:-34px!important;
+    bottom:-28px!important;
+    opacity:.60!important;
+    object-fit:contain!important;
+    object-position:left bottom!important;
+    -webkit-mask-image:linear-gradient(to top,#000 88%,transparent 100%)!important;
+    mask-image:linear-gradient(to top,#000 88%,transparent 100%)!important;
+  }
+  .decor-about .vb-as{
+    display:block!important;
+    width:clamp(58px,18vw,72px)!important;
+    height:clamp(128px,38vw,154px)!important;
+    right:6px!important;
+    bottom:10px!important;
+    opacity:.52!important;
+    object-fit:contain!important;
+  }
+
+  /* APPROACH — broaden the topographic field and enlarge the right foliage. */
+  .decor-approach .vb-tl{
+    width:410px!important;
+    height:258px!important;
+    left:-138px!important;
+    top:-50px!important;
+    opacity:.24!important;
+  }
+  .decor-approach .vb-apr{
+    width:clamp(146px,43vw,176px)!important;
+    height:clamp(212px,61vw,252px)!important;
+    right:-30px!important;
+    bottom:-34px!important;
+    opacity:.72!important;
+    object-fit:contain!important;
+    object-position:right bottom!important;
+  }
+
+  /* TOPICS — larger botanical bookends; still outside card reading areas. */
+  .decor-topics .vb-tr{
+    display:block!important;
+    width:clamp(148px,43vw,180px)!important;
+    height:clamp(226px,66vw,270px)!important;
+    right:-32px!important;
+    top:-18px!important;
+    opacity:.74!important;
+    object-fit:contain!important;
+    object-position:right top!important;
+  }
+  .decor-topics .vb-tpl{
+    display:block!important;
+    width:clamp(82px,25vw,104px)!important;
+    height:clamp(128px,38vw,158px)!important;
+    left:-24px!important;
+    bottom:-26px!important;
+    opacity:.48!important;
+    object-fit:contain!important;
+    object-position:left bottom!important;
+  }
+
+  /* PROCESS — bring back a clearly visible natural branch plus larger topology. */
+  .decor-process .vb-pl{
+    display:block!important;
+    width:clamp(104px,31vw,128px)!important;
+    height:clamp(170px,50vw,206px)!important;
+    right:-28px!important;
+    left:auto!important;
+    bottom:-18px!important;
+    top:auto!important;
+    transform:scaleX(-1)!important;
+    opacity:.64!important;
+    object-fit:contain!important;
+    object-position:left bottom!important;
+    -webkit-mask-image:linear-gradient(to top,#000 88%,transparent 100%)!important;
+    mask-image:linear-gradient(to top,#000 88%,transparent 100%)!important;
+  }
+  .decor-process .vb-pt{
+    width:246px!important;
+    height:208px!important;
+    right:-92px!important;
+    bottom:-54px!important;
+    opacity:.21!important;
+  }
+
+  /* CARE — make the left-side nature moment tall and obvious. */
+  .decor-care .vb-cl{
+    width:clamp(120px,36vw,148px)!important;
+    height:clamp(192px,57vw,232px)!important;
+    left:-32px!important;
+    bottom:-22px!important;
+    opacity:.68!important;
+    object-fit:contain!important;
+    object-position:left bottom!important;
+    -webkit-mask-image:linear-gradient(to top,#000 90%,transparent 100%)!important;
+    mask-image:linear-gradient(to top,#000 90%,transparent 100%)!important;
+  }
+  .care{position:relative!important}
+  .care::after{
+    content:''!important;
+    position:absolute!important;
+    right:-38px!important;
+    top:34px!important;
+    width:92px!important;
+    height:154px!important;
+    background:url('../assets/art/about-seeds.webp') right top/contain no-repeat!important;
+    opacity:.32!important;
+    pointer-events:none!important;
+    z-index:1!important;
+  }
+
+  /* FAQ — much more visible closing botanical flourish. */
+  .decor-faq .vb-fr{
+    display:block!important;
+    width:clamp(132px,39vw,160px)!important;
+    height:clamp(190px,56vw,228px)!important;
+    right:-32px!important;
+    bottom:-20px!important;
+    opacity:.66!important;
+    object-fit:contain!important;
+    object-position:right bottom!important;
+  }
+  .faq-section{position:relative!important}
+  .faq-section::before{
+    content:''!important;
+    position:absolute!important;
+    left:-34px!important;
+    top:18px!important;
+    width:82px!important;
+    height:132px!important;
+    background:url('../assets/art/topics-left.webp') left top/contain no-repeat!important;
+    opacity:.32!important;
+    pointer-events:none!important;
+    z-index:1!important;
+  }
+
+  /* FINAL CTA — make the nature frame much fuller and more intentional. */
+  .final-cta{padding-bottom:108px!important;position:relative!important;overflow:hidden!important}
+  .decor-final .vb-fl,.decor-final .vb-frr{
+    width:clamp(226px,65vw,270px)!important;
+    height:clamp(138px,41vw,166px)!important;
+    bottom:-16px!important;
+    opacity:.58!important;
+  }
+  .decor-final .vb-fl{left:-42px!important}
+  .decor-final .vb-frr{right:-42px!important}
+
+  /* Never let decorative artwork capture interaction. */
+  .decor-scene,.decor-scene *{pointer-events:none!important}
+}
+
+/* On very narrow phones keep the artwork LARGE, only move it further off-canvas
+   instead of shrinking it — preserves the stronger nature presence. */
+@media (max-width: 359px){
+  .decor-hero .vb-hl{width:120px!important;left:-42px!important;opacity:.78!important}
+  .decor-hero .vb-hr{width:154px!important;right:-42px!important;opacity:.82!important}
+  .decor-about .vb-ar{width:164px!important;right:-48px!important}
+  .decor-about .vb-al{width:118px!important;left:-46px!important}
+  .decor-approach .vb-apr{width:146px!important;right:-44px!important}
+  .decor-topics .vb-tr{width:148px!important;right:-46px!important}
+  .decor-topics .vb-tpl{width:82px!important;left:-34px!important}
+  .decor-process .vb-pl{width:104px!important;right:-40px!important}
+  .decor-care .vb-cl{width:120px!important;left:-44px!important}
+  .decor-faq .vb-fr{width:132px!important;right:-44px!important}
+}
+
+/* =========================================================
+   V7 — visible botanical decorations on mobile
+   User correction: the nature artwork must be LARGE, readable
+   and clearly visible throughout the page — not tiny, faded or
+   pushed almost entirely outside the viewport.
+   ========================================================= */
+@media (max-width: 767px){
+  /* Keep artwork behind content, but do not fade it away. */
+  .decor-scene{overflow:hidden!important;z-index:1!important}
+  .decor-scene>img.vb{
+    display:block!important;
+    pointer-events:none!important;
+    user-select:none!important;
+    filter:saturate(1.06) contrast(1.03)!important;
+  }
+
+  /* HERO — fuller foliage, visibly framing the portrait. */
+  .decor-scene.decor-hero{display:block!important;height:clamp(300px,86vw,360px)!important;z-index:3!important}
+  .decor-hero .vb-hl{
+    width:clamp(150px,45vw,188px)!important;
+    height:clamp(286px,84vw,338px)!important;
+    left:-6px!important;top:-4px!important;
+    opacity:.94!important;
+    object-fit:cover!important;object-position:left top!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+  .decor-hero .vb-hr{
+    width:clamp(180px,52vw,214px)!important;
+    height:clamp(198px,58vw,236px)!important;
+    right:-6px!important;bottom:-2px!important;
+    opacity:.96!important;
+    object-fit:cover!important;object-position:right bottom!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+  .hero-copy::after{
+    right:-8px!important;bottom:0!important;
+    width:112px!important;height:184px!important;
+    opacity:.58!important;
+  }
+
+  /* BENEFITS — clearly visible corner foliage instead of faint fragments. */
+  .benefits::before,.benefits::after{
+    width:clamp(132px,40vw,164px)!important;
+    height:clamp(206px,60vw,246px)!important;
+    opacity:.72!important;
+    background-size:contain!important;
+  }
+  .benefits::before{left:-10px!important;bottom:-46px!important}
+  .benefits::after{right:-10px!important;top:-36px!important}
+
+  /* ABOUT — large, elegant two-sided botanical frame. */
+  .decor-about .vb-ar{
+    width:clamp(205px,59vw,242px)!important;
+    height:clamp(300px,86vw,350px)!important;
+    right:-8px!important;top:-18px!important;
+    opacity:.92!important;
+    object-fit:cover!important;object-position:right top!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+  .decor-about .vb-al{
+    width:clamp(160px,47vw,194px)!important;
+    height:clamp(270px,78vw,318px)!important;
+    left:-8px!important;bottom:-34px!important;
+    opacity:.84!important;
+    object-fit:cover!important;object-position:left bottom!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+  .decor-about .vb-as{
+    width:clamp(78px,23vw,94px)!important;
+    height:clamp(166px,48vw,198px)!important;
+    right:12px!important;bottom:14px!important;
+    opacity:.76!important;
+  }
+
+  /* APPROACH — keep topography subtle, make the botanical branch obvious. */
+  .decor-approach .vb-tl{
+    width:430px!important;height:270px!important;
+    left:-128px!important;top:-38px!important;
+    opacity:.26!important;
+  }
+  .decor-approach .vb-apr{
+    width:clamp(178px,52vw,212px)!important;
+    height:clamp(272px,78vw,314px)!important;
+    right:-6px!important;bottom:-34px!important;
+    opacity:.90!important;
+    object-fit:cover!important;object-position:right bottom!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+
+  /* TOPICS — visible botanical bookends, not tiny leaf tips. */
+  .decor-topics .vb-tr{
+    width:clamp(190px,55vw,226px)!important;
+    height:clamp(300px,86vw,350px)!important;
+    right:-6px!important;top:-28px!important;
+    opacity:.91!important;
+    object-fit:cover!important;object-position:right top!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+  .decor-topics .vb-tpl{
+    display:block!important;
+    width:clamp(118px,35vw,144px)!important;
+    height:clamp(182px,53vw,216px)!important;
+    left:-6px!important;bottom:-22px!important;
+    opacity:.78!important;
+    object-fit:cover!important;object-position:left bottom!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+
+  /* PROCESS — large organic branch plus readable topology. */
+  .decor-process .vb-pl{
+    display:block!important;
+    width:clamp(150px,44vw,184px)!important;
+    height:clamp(246px,70vw,286px)!important;
+    right:-6px!important;left:auto!important;bottom:-18px!important;
+    transform:scaleX(-1)!important;
+    opacity:.88!important;
+    object-fit:cover!important;object-position:left bottom!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+  .decor-process .vb-pt{
+    width:270px!important;height:228px!important;
+    right:-66px!important;bottom:-42px!important;
+    opacity:.24!important;
+  }
+
+  /* ATTENDANCE — strong left botanical moment + visible seed detail. */
+  .decor-care .vb-cl{
+    width:clamp(158px,47vw,194px)!important;
+    height:clamp(270px,78vw,316px)!important;
+    left:-6px!important;bottom:-26px!important;
+    opacity:.90!important;
+    object-fit:cover!important;object-position:left bottom!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+  .care::after{
+    right:-8px!important;top:30px!important;
+    width:112px!important;height:186px!important;
+    opacity:.68!important;
+  }
+
+  /* FAQ — visible foliage on both sides, but still behind the content. */
+  .decor-faq .vb-fr{
+    width:clamp(170px,50vw,204px)!important;
+    height:clamp(260px,75vw,306px)!important;
+    right:-6px!important;bottom:-18px!important;
+    opacity:.88!important;
+    object-fit:cover!important;object-position:right bottom!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+  .faq-section::before{
+    left:-6px!important;top:26px!important;
+    width:112px!important;height:174px!important;
+    opacity:.66!important;
+  }
+
+  /* FINAL CTA — make the botanical frame visibly part of the section. */
+  .final-cta{padding-bottom:118px!important}
+  .decor-final .vb-fl,.decor-final .vb-frr{
+    width:clamp(248px,72vw,294px)!important;
+    height:clamp(152px,44vw,184px)!important;
+    bottom:-6px!important;
+    opacity:.76!important;
+    -webkit-mask-image:none!important;mask-image:none!important;
+  }
+  .decor-final .vb-fl{left:-18px!important}
+  .decor-final .vb-frr{right:-18px!important}
+}
+
+/* Narrow phones: keep the decorations large and visible; only trim a
+   small amount at the edge instead of pushing them far off-canvas. */
+@media (max-width: 359px){
+  .decor-hero .vb-hl{width:150px!important;left:-8px!important;opacity:.92!important}
+  .decor-hero .vb-hr{width:180px!important;right:-8px!important;opacity:.94!important}
+  .decor-about .vb-ar{width:205px!important;right:-10px!important}
+  .decor-about .vb-al{width:160px!important;left:-10px!important}
+  .decor-approach .vb-apr{width:178px!important;right:-8px!important}
+  .decor-topics .vb-tr{width:190px!important;right:-8px!important}
+  .decor-topics .vb-tpl{width:118px!important;left:-8px!important}
+  .decor-process .vb-pl{width:150px!important;right:-8px!important}
+  .decor-care .vb-cl{width:158px!important;left:-8px!important}
+  .decor-faq .vb-fr{width:170px!important;right:-8px!important}
+}
