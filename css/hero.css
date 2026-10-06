@@ -18,7 +18,7 @@
    ========================================================= */
 @media (min-width:901px){
   .hero-grid{
-
+    
     overflow:visible;
   }
   .hero-visual{
@@ -50,3 +50,4 @@
   .hero-copy{min-height:580px}
   .hero-portrait-picture img{object-position:50% 36%}
 }
+
