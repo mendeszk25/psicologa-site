@@ -1,0 +1,112 @@
+/* V8 — final visual refinement. Keeps the current identity, improves hierarchy,
+   human presence, decorative rhythm and maintainability. */
+
+/* ---------- HERO: source portrait + responsive HTML composition ---------- */
+.hero-visual{isolation:isolate}
+.portrait-frame{position:relative;overflow:visible!important;display:block;background:transparent!important}
+.hero-photo-shell{position:absolute;inset:36px 29% 34px 2%;overflow:hidden;border-radius:52% 48% 47% 53% / 42% 44% 56% 58%;background:#e9e1d2;box-shadow:0 24px 55px rgba(66,55,39,.08);z-index:1}
+.hero-portrait-picture{position:absolute!important;inset:0!important;-webkit-mask-image:none!important;mask-image:none!important}
+.hero-portrait-picture img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;filter:saturate(.93) contrast(.985) brightness(1.015)}
+.hero-photo-shell::after{content:'';position:absolute;inset:0;border:1px solid rgba(183,151,94,.38);border-radius:inherit;pointer-events:none}
+.hero-quote{position:absolute;z-index:3;right:2.5%;top:26%;width:31%;padding:8px 0;color:#4c5c45}
+.hero-quote p{margin:0;font:italic 400 clamp(1.45rem,2vw,2.1rem)/1.15 var(--serif);letter-spacing:-.025em}
+.hero-quote>span{display:block;width:42px;height:1px;background:#ae9360;margin:18px 0 12px}
+.hero-quote strong{display:block;font:600 10px/1.2 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:#51564e}
+.hero-visual-sprig{position:absolute;z-index:2;width:44%;height:auto;right:-4%;bottom:-4%;opacity:.64;transform:rotate(-9deg);pointer-events:none}
+
+/* ---------- Human, editorial confidence strip ---------- */
+.credentials{position:relative;padding:26px 0;background:#eee6d7;border-top:1px solid rgba(181,154,103,.16);border-bottom:1px solid rgba(181,154,103,.16);overflow:hidden}
+.credentials::after{content:'';position:absolute;right:-70px;top:-95px;width:220px;height:220px;border:1px solid rgba(181,154,103,.18);border-radius:50%;pointer-events:none}
+.credentials-inner{display:grid;grid-template-columns:170px 1fr;gap:34px;align-items:center}
+.credentials-kicker{margin:0;font:600 9px/1.35 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:#7b785f}
+.credentials-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.credentials-grid article{padding:4px 24px;border-left:1px solid rgba(94,112,87,.18)}
+.credentials-grid strong{display:block;margin-bottom:7px;font:400 22px/1 var(--serif);color:#42533d}
+.credentials-grid span{display:block;max-width:210px;font:400 11px/1.45 var(--sans);color:#66665e}
+
+/* ---------- Refined decorative rhythm ---------- */
+@media (min-width:768px){
+  .decor-about .vb-ar{opacity:.66!important}.decor-about .vb-al{opacity:.48!important}.decor-about .vb-as{opacity:.42!important}
+  .decor-approach .vb-apr{opacity:.62!important}.decor-topics .vb-tr{opacity:.62!important}.decor-topics .vb-tpl{opacity:.35!important}
+  .decor-process .vb-pl{opacity:.48!important}.decor-care .vb-cl{opacity:.55!important}.decor-faq .vb-fr{opacity:.5!important}
+  .final-cta .vb-fl,.final-cta .vb-frr{opacity:.55!important}
+}
+
+/* Slightly more natural copy rhythm */
+.about-handwritten{max-width:240px!important;font-size:clamp(1.45rem,1.75vw,1.9rem)!important;line-height:1.18!important}
+.topics article{transition:border-color .25s ease,background .25s ease}
+.topics article:hover{border-color:rgba(181,154,103,.3);background:rgba(250,247,240,.98)}
+.topic-media img{filter:saturate(.88) contrast(.985) brightness(1.025)}
+
+/* ---------- Mobile ---------- */
+.mobile-booking-dock{display:none}
+@media (max-width:767px){
+  body{padding-bottom:76px}
+  body.booking-open{padding-bottom:0}
+
+  /* portrait-first hero, but now made from real responsive layers */
+  .hero-visual{height:clamp(320px,88vw,390px)!important;padding:10px 14px 0!important;position:relative!important;overflow:hidden!important}
+  .portrait-frame{width:100%!important;height:100%!important;aspect-ratio:auto!important;border-radius:0!important;overflow:visible!important}
+  .hero-photo-shell{inset:6px 17% 8px 3%;border-radius:52% 48% 48% 52% / 39% 42% 58% 61%;box-shadow:0 18px 42px rgba(66,55,39,.075)}
+  .hero-portrait-picture img{object-position:50% 34%!important;filter:saturate(.92) contrast(.985) brightness(1.02)!important}
+  .hero-quote{right:3%;top:18%;width:30%;padding:0}
+  .hero-quote p{font-size:clamp(17px,4.9vw,21px);line-height:1.12}
+  .hero-quote>span{width:30px;margin:13px 0 9px}
+  .hero-quote strong{font-size:6.7px;letter-spacing:.18em;line-height:1.35}
+  .hero-visual-sprig{width:46%;right:-12%;bottom:-7%;opacity:.48}
+  .hero-copy{padding-top:25px!important}
+  .decor-scene.decor-hero{display:block!important;height:360px!important;z-index:0!important}
+  .decor-hero .vb-hl{--w:94px;--h:190px;display:block!important;width:94px!important;height:190px!important;left:-28px!important;top:12px!important;opacity:.34!important;object-fit:contain!important;-webkit-mask-image:none!important;mask-image:none!important}
+  .decor-hero .vb-hr{--w:120px;--h:145px;display:block!important;width:120px!important;height:145px!important;right:-30px!important;bottom:0!important;opacity:.36!important;object-fit:contain!important;-webkit-mask-image:none!important;mask-image:none!important}
+
+  /* Keep strong nature moments only in selected sections. */
+  .benefits::before,.benefits::after{opacity:.16!important;transform:scale(.82)}
+  .decor-about .vb-ar{--w:126px;--h:170px;width:126px!important;height:170px!important;right:-34px!important;top:2px!important;opacity:.42!important;object-fit:contain!important;-webkit-mask-image:none!important;mask-image:none!important}
+  .decor-about .vb-al{display:none!important}.decor-about .vb-as{--w:68px;--h:132px;display:block!important;width:68px!important;height:132px!important;right:2px!important;bottom:10px!important;opacity:.32!important;object-fit:contain!important}
+  .decor-approach .vb-apr{--w:88px;--h:132px;width:88px!important;height:132px!important;right:-20px!important;bottom:-12px!important;opacity:.34!important;object-fit:contain!important;-webkit-mask-image:none!important;mask-image:none!important}
+  .decor-topics .vb-tr{--w:104px;--h:148px;width:104px!important;height:148px!important;right:-28px!important;top:10px!important;opacity:.38!important;object-fit:contain!important;-webkit-mask-image:none!important;mask-image:none!important}
+  .decor-topics .vb-tpl{display:none!important}
+  .decor-process .vb-pl{display:none!important}
+  .decor-care .vb-cl{--w:92px;--h:142px;width:92px!important;height:142px!important;left:-30px!important;bottom:-6px!important;opacity:.34!important;object-fit:contain!important;-webkit-mask-image:none!important;mask-image:none!important}
+  .decor-faq .vb-fr{--w:102px;--h:150px;width:102px!important;height:150px!important;right:-28px!important;bottom:-10px!important;opacity:.32!important;object-fit:contain!important;-webkit-mask-image:none!important;mask-image:none!important}
+  .decor-final .vb-fl,.decor-final .vb-frr{--w:170px;--h:104px;width:170px!important;height:104px!important;bottom:-4px!important;opacity:.45!important;-webkit-mask-image:none!important;mask-image:none!important}
+
+  /* About quote becomes a genuine editorial note, not another decorative label. */
+  .about-aside{padding:22px 22px 22px 58px!important;background:rgba(246,240,229,.68)!important}
+  .about-handwritten{font-size:21px!important;line-height:1.18!important;max-width:none!important}
+
+  /* Credentials become a calm, scannable stack. */
+  .credentials{padding:34px 0 36px}
+  .credentials-inner{display:block;width:calc(100% - 36px)}
+  .credentials-kicker{font-size:9px;margin-bottom:18px}
+  .credentials-grid{grid-template-columns:1fr;gap:0;border-top:1px solid rgba(94,112,87,.16)}
+  .credentials-grid article{display:grid;grid-template-columns:112px 1fr;gap:14px;align-items:center;padding:15px 0;border-left:0;border-bottom:1px solid rgba(94,112,87,.16)}
+  .credentials-grid strong{font-size:19px;margin:0}.credentials-grid span{font-size:11.5px;max-width:none}
+
+  /* Alternate mobile rhythm: more breathing room where reading matters. */
+  .about{padding-top:70px!important;padding-bottom:68px!important}
+  .approach{padding-top:64px!important;padding-bottom:68px!important}
+  .topics{padding-top:68px!important;padding-bottom:72px!important}
+  .process{padding-top:66px!important;padding-bottom:62px!important}
+  .care{padding-top:68px!important;padding-bottom:70px!important}
+  .faq-section{padding-top:70px!important;padding-bottom:76px!important}
+
+  /* Topic cards: larger source images deserve more visual presence. */
+  .topics article{grid-template-columns:minmax(0,1.32fr) minmax(116px,.95fr)!important;min-height:124px!important;padding:12px 10px 12px 14px!important}
+  .topics .topic-media{min-height:100px!important}
+  .topics article:after{content:'Conhecer  →'!important}
+
+  /* Persistent but quiet mobile action. */
+  .mobile-booking-dock{position:fixed;z-index:80;left:14px;right:14px;bottom:max(12px,env(safe-area-inset-bottom));height:54px;display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid rgba(245,241,232,.22);border-radius:999px;background:rgba(57,76,51,.95);box-shadow:0 12px 34px rgba(38,47,34,.2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#faf6ee;font:500 13px/1 var(--sans);text-decoration:none;letter-spacing:.01em}
+  .mobile-booking-dock-icon{display:grid;place-items:center;width:29px;height:29px;border:1px solid rgba(250,246,238,.24);border-radius:50%}
+  .mobile-booking-dock svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.4}
+  body.booking-open .mobile-booking-dock{display:none}
+  .site-footer{padding-bottom:32px!important}
+}
+
+@media (max-width:359px){
+  .hero-visual{height:306px!important}
+  .hero-photo-shell{right:16%}
+  .hero-quote{right:2%;width:31%}.hero-quote p{font-size:16px}.hero-quote strong{font-size:6px}
+  .credentials-grid article{grid-template-columns:100px 1fr}
+}

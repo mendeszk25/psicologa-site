@@ -1,0 +1,200 @@
+/* Surgical botanical integration pass.
+   Scope: decorative geometry, clipping, seams and layer ownership only.
+   No content, typography, application logic or admin styles are changed. */
+:root{
+  --ornament-gutter:clamp(118px,34vw,170px); /* tablet/mobile fallback only */
+  --ornament-gold:rgba(171,143,88,.32);
+  --ornament-paper:#f7f1e6;
+}
+html,body{overflow-x:clip} /* sitewide decorative bleed (not hero width) */
+
+body::before{opacity:.055}
+
+/* Keep the public-page paper language, but soften tonal steps at section edges. */
+.hero,.about,.approach-section,.topics,.process,.care,.faq-section{
+  background-image:
+    radial-gradient(ellipse at 0 30%,rgba(184,151,94,.085),transparent 43%),
+    radial-gradient(ellipse at 100% 85%,rgba(170,151,108,.07),transparent 43%);
+}
+.approach-section,.process,.faq-section{
+  background-color:#f6efe3;
+  background-image:
+    linear-gradient(to bottom,var(--ornament-paper) 0,rgba(246,239,227,.96) 34px,rgba(246,239,227,.96) calc(100% - 34px),var(--ornament-paper) 100%),
+    radial-gradient(ellipse at 0 30%,rgba(184,151,94,.075),transparent 43%),
+    radial-gradient(ellipse at 100% 85%,rgba(170,151,108,.06),transparent 43%);
+}
+.section,.hero,.approach-section,.benefits,.credentials{border-bottom-color:rgba(164,142,102,.075)}
+
+/* Decorative canvases may breathe vertically; only the page edge clips horizontally. */
+.decor-scene{overflow:visible}
+.edge-garden{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:100%;
+  overflow:visible;
+  pointer-events:none;
+  z-index:0;
+}
+.edge-left{left:0}.edge-right{right:0}
+.botanical-sprite{
+  position:absolute;
+  display:block;
+  width:clamp(300px,26vw,500px);
+  aspect-ratio:1;
+  background-image:url('../assets/botanical-atlas.png');
+  background-size:200% 200%;
+  background-repeat:no-repeat;
+  filter:saturate(.62);
+  opacity:.9;
+}
+.botanical-a{background-position:0 0}.botanical-b{background-position:100% 0}.botanical-c{background-position:0 100%}
+
+/* Old thin twigs remain supporting marks only. */
+.decor-hero .vb-hl,.decor-hero .vb-hr,.decor-about .vb-al,.decor-about .vb-ar,
+.decor-approach .vb-apr,.decor-topics .vb-tr,.decor-topics .vb-tpl,
+.decor-process .vb-pl,.decor-care .vb-cl,.decor-faq .vb-fr{display:none}
+
+/* HERO — photo owns the blossom; section garden owns the left framing. */
+.hero-foliage{width:clamp(350px,26vw,430px);right:92px;top:58px;transform:rotate(-8deg);opacity:.88}
+.hero-dried{width:290px;right:112px;bottom:26px;transform:rotate(9deg);opacity:.44}
+.decor-hero .edge-right{display:none}
+.hero-photo-blossom{
+  z-index:2;
+  width:clamp(290px,25vw,390px);
+  right:-115px;
+  bottom:-40px;
+  transform:rotate(-10deg);
+  opacity:.92;
+  pointer-events:none;
+}
+.hero-photo-shell{z-index:0}
+.hero-quote{z-index:4}
+.hero-visual-sprig{z-index:3;opacity:.68;filter:brightness(.66);width:145px;transform:rotate(-22deg);transform-origin:bottom left}
+.hero-visual::after{display:none}
+.hero-visual::before{inset:28px 2px 30px -29px;border-color:rgba(179,154,104,.34);border-radius:46% 0 0 51%}
+.hero-quote::after{
+  content:'';
+  position:absolute;
+  inset:-34px -34px -38px -26px;
+  border:1px solid rgba(167,146,101,.22);
+  border-left-color:transparent;
+  border-radius:56% 46% 54% 42%;
+  transform:rotate(5deg);
+  pointer-events:none;
+  z-index:-1;
+}
+
+/* ABOUT — every plant ends inside the spread; no section-edge truncation. */
+.about-foliage{width:430px;right:-72px;bottom:34px;transform:rotate(-15deg)}
+.about-canopy{width:455px;left:-108px;top:24px;transform:rotate(4deg)}
+.decor-about .vb-as{width:112px;right:clamp(42px,8vw,130px);bottom:70px;opacity:.62}
+.portrait-collage::after{content:'';position:absolute;inset:-34px 10px -23px -23px;border-left:1px solid rgba(181,154,103,.42);border-top:1px solid rgba(181,154,103,.20);border-radius:47% 14% 23% 46%;z-index:-1;pointer-events:none}
+.decor-about::after,.decor-topics::before,.decor-care::after,.decor-faq::before{content:'';position:absolute;pointer-events:none;background:url('../assets/v-topo-left.svg') center/100% 100% no-repeat}
+.decor-about::after{left:-90px;bottom:18px;width:420px;height:290px;transform:rotate(17deg);opacity:.62}
+
+/* APPROACH — one right-side owner, with deliberate breathing room before Topics. */
+.decor-approach .vb-tl{width:clamp(470px,38vw,620px);left:-220px;top:10px;opacity:.82;filter:contrast(1.22)}
+.approach-foliage{width:318px;left:20px;bottom:30px;transform:rotate(-13deg);opacity:.70}
+.decor-approach::after{content:'';position:absolute;right:-80px;top:34px;width:360px;height:430px;border:1px solid rgba(181,154,103,.20);border-radius:49%;transform:rotate(25deg)}
+
+/* TOPICS — no plant begins or ends on the section seam. */
+.topics-canopy{width:332px;left:34px;top:82px;transform:rotate(13deg);opacity:.76}
+.topics-dried{width:315px;right:36px;bottom:30px;transform:rotate(16deg);opacity:.64}
+.decor-topics::before{left:-120px;top:48px;width:390px;height:315px;transform:rotate(-15deg);opacity:.52}
+.decor-topics::after{content:'';position:absolute;right:-125px;bottom:38px;width:420px;height:320px;background:url('../assets/nature-topography.svg') center/contain no-repeat;transform:rotate(-50deg);opacity:.58}
+
+/* PROCESS — plant has a natural top edge; timeline markers sit on the same curve system. */
+.process-line{top:186px;opacity:.95}.process-line img{filter:none;transform:translateY(-1px)}
+.process-foliage{width:330px;right:-42px;top:32px;transform:scaleX(-1) rotate(-22deg);opacity:.86}
+.decor-process .vb-pt{width:360px;right:-90px;bottom:30px;opacity:.56}
+@media(min-width:901px){
+  .timeline li:nth-child(2),.timeline li:nth-child(3){padding-top:0}
+  .timeline-marker{transform:translateY(-16px)}
+  .timeline li:nth-child(2) .timeline-marker{transform:translateY(-18px)}
+  .timeline li:nth-child(3) .timeline-marker{transform:translateY(-26px)}
+  .timeline li:nth-child(4) .timeline-marker{transform:translateY(-19px)}
+}
+
+/* CARE — frame the section, never the eyebrow. */
+.care-foliage{width:390px;right:150px;top:42px;transform:rotate(-12deg);opacity:.82}
+.decor-care::after{right:-130px;bottom:36px;width:410px;height:300px;transform:rotate(190deg);opacity:.46}
+
+/* FAQ owns its right branch entirely; it ends before the CTA boundary. */
+.faq-foliage{width:375px;left:120px;bottom:46px;transform:rotate(-16deg);opacity:.86}
+.decor-faq::before{width:390px;height:500px;left:-225px;top:48px;transform:rotate(15deg);opacity:.52}
+
+/* FINAL BAND — no window-like clipping. Side art may bleed only toward the viewport edge. */
+.decor-final{overflow:visible}
+.decor-final .vb-fl,.decor-final .vb-frr{display:block}
+.cta-outline{display:none;position:absolute;width:265px;height:auto;max-width:none;opacity:.58}
+.cta-outline-left{left:-42px;bottom:-74px;transform:rotate(26deg)}
+.cta-outline-right{right:-48px;bottom:-92px;transform:scaleX(-1) rotate(31deg);width:285px;opacity:.52}
+.cta-seeds{position:absolute;width:170px;left:53%;bottom:-44px;transform:rotate(29deg);filter:brightness(0) invert(1);opacity:.09}
+.vb-fl,.vb-frr{position:absolute;display:block;width:300px;height:auto;max-width:none;opacity:.48;filter:brightness(1.05)}
+.vb-fl{left:-92px;bottom:26px;transform:rotate(-4deg)}
+.vb-frr{right:-92px;bottom:22px;transform:scaleX(-1) rotate(-2deg)}
+.final-cta{border-bottom-color:transparent}
+
+/* Footer has no residual corner sprig. */
+.site-footer{position:relative;isolation:isolate}
+.footer-ornament{display:none}
+
+/* Tablet/mobile: the decorative canvas is wide enough for the sprite itself.
+   Assets are reduced/repositioned instead of being forced through a 42px slit. */
+@media(max-width:900px){
+  :root{--ornament-gutter:clamp(118px,34vw,170px)}
+  .edge-garden{width:var(--ornament-gutter)}
+  .hero-quote::after{inset:-16px -12px -18px -12px;transform:rotate(3deg)}
+  .hero-visual-sprig{width:88px;transform:none;opacity:.55}
+  .hero-foliage{width:198px;right:24px;top:32px;opacity:.56}
+  .hero-dried{display:none}
+  .hero-photo-blossom{width:190px;right:-76px;bottom:-28px;opacity:.75}
+
+  .about-foliage{width:205px;right:-96px;top:160px;bottom:auto;opacity:.72}
+  .about-canopy{width:218px;left:-112px;top:26px;opacity:.72}
+  .decor-about .vb-as{width:58px;right:18px;bottom:34px;opacity:.48}
+  .portrait-collage::after{inset:-20px 5px -12px 0}
+  .decor-about::after{width:250px;height:190px;left:-150px;bottom:18px;opacity:.44}
+
+  .decor-approach .vb-tl{width:330px;left:-225px;top:8px;opacity:.55}
+  .approach-foliage{width:180px;left:18px;bottom:24px;opacity:.66}
+  .decor-approach::after{right:-128px;top:34px;width:190px;height:275px}
+
+  .topics-canopy{width:150px;left:16px;top:56px;opacity:.52}
+  .topics-dried{width:175px;right:24px;bottom:24px;opacity:.58}
+  .decor-topics::before{width:245px;height:205px;left:-165px;top:40px;opacity:.40}
+  .decor-topics::after{width:260px;height:220px;right:-170px;bottom:32px;opacity:.42}
+
+  .process-foliage{width:200px;right:-112px;top:26px;opacity:.62}
+  .decor-process .vb-pt{width:240px;right:-165px;bottom:28px;opacity:.42}
+  .care-foliage{width:195px;right:44px;top:40px;opacity:.58}
+  .decor-care::after{width:270px;height:205px;right:-175px;bottom:24px;opacity:.38}
+
+  .faq-foliage{width:190px;left:68px;bottom:38px;opacity:.62}
+  .decor-faq::before{width:245px;height:390px;left:-190px;top:44px;opacity:.38}
+
+  .cta-outline-left{display:none}
+  .cta-outline-right{display:none}
+  .cta-seeds{width:118px;left:54%;bottom:-18px;opacity:.06}
+  .vb-fl{width:220px;left:-88px;bottom:24px;opacity:.34}
+  .vb-frr{width:220px;right:-92px;bottom:24px;opacity:.34}
+}
+
+@media(max-width:430px){
+  :root{--ornament-gutter:clamp(110px,36vw,150px)}
+  .hero-foliage{display:none}
+  .hero-photo-blossom{display:none}
+  .about-foliage{width:180px;right:-102px;top:170px}
+  .about-canopy{width:185px;left:-105px;top:34px}
+  .approach-foliage{width:158px;left:-93px;bottom:28px}
+  .topics-canopy{display:none}
+  .topics-dried{width:155px;right:-92px;bottom:30px}
+  .process-foliage{display:none}
+  .care-foliage{display:none}
+  .faq-foliage{width:165px;left:72px;bottom:46px}
+  .vb-fl{width:185px;left:-82px;bottom:18px;opacity:.30}
+  .vb-frr{width:185px;right:-84px;bottom:20px;opacity:.30}
+}
+
+@media(prefers-reduced-motion:reduce){.botanical-sprite{animation:none}}

@@ -1,0 +1,344 @@
+/* V12 — responsive refinement of the existing public-page composition.
+   No global scaling. Mobile rules and all application logic remain upstream. */
+@media (min-width: 901px) {
+  :root {
+    --container: clamp(960px, calc(60vw + 280px), 1240px);
+    --page-gutter: clamp(32px, 4vw, 64px);
+    --section-space: clamp(64px, calc(5vw + 8px), 92px);
+    --spread-gap: clamp(32px, 4vw, 64px);
+    --hero-height: clamp(560px, calc(30vw + 140px), 700px);
+    --heading-size: clamp(48px, calc(2.5vw + 22px), 62px);
+  }
+  .site-shell { width: min(calc(100% - var(--page-gutter) * 2), var(--container)); }
+  .hero, .hero-grid, .hero-visual, .portrait-frame { min-height: var(--hero-height); }
+  .hero-grid { grid-template-columns: 46% 54%; }
+  .hero-copy { padding: clamp(32px, 3.3vw, 62px) 28px clamp(32px, 2.9vw, 54px) 0; }
+  .hero h1 { font-size: clamp(54px, calc(3.125vw + 12px), 72px); }
+  .about h2, .approach h3, .topics h2, .process h2 { font-size: var(--heading-size); }
+  .faq-intro h2 { font-size: clamp(46px, calc(2vw + 24px), 59px); }
+  .care-head h2 { font-size: clamp(43px, 3.25vw, 52px); }
+  .final-cta h2 { font-size: clamp(56px, 4.5vw, 72px); }
+  .about, .topics, .process, .care, .faq-section { padding-block: var(--section-space); }
+  .approach { padding-block: var(--section-space); min-height: 0; gap: var(--spread-gap); }
+  .about-grid { gap: clamp(30px, 2.5vw, 46px); }
+  .about-photo { height: clamp(470px, calc(20vw + 197px), 555px); }
+  .topics-grid { gap: clamp(20px, 1.5vw, 28px); }
+  .topic-media { height: auto; aspect-ratio: 1.88; }
+  .faq-grid { gap: var(--spread-gap); }
+  .final-cta { min-height: 0; padding-block: clamp(60px, 5vw, 80px); }
+
+  /* Both curve and markers share the same grid row, independent of heading wrapping.
+     SVG samples at 12.5%, 37.5%, 62.5%, 87.5%: y=60.28,64.42,47.63,60.31 / 130. */
+  .process > .site-shell { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .process-head { grid-area: 1 / 1; }
+  .process-line { position: relative; grid-area: 2 / 1; inset: auto; height: 125px; margin-top: 20px; align-self: start; }
+  .process-line img { transform: none; }
+  .timeline { grid-area: 2 / 1; gap: 0; padding-top: 20px; }
+  .timeline li, .timeline li:nth-child(2), .timeline li:nth-child(3) { padding: 0 12px; }
+  .timeline-marker, .timeline li:nth-child(n) .timeline-marker { transform: none; margin-top: calc(var(--curve-y) * 125px / 130 - 21px); margin-bottom: 18px; }
+  .timeline li:nth-child(1) { --curve-y: 60.28; }
+  .timeline li:nth-child(2) { --curve-y: 64.42; }
+  .timeline li:nth-child(3) { --curve-y: 47.63; }
+  .timeline li:nth-child(4) { --curve-y: 60.31; }
+}
+
+@media (min-width: 901px) and (max-width: 1599px) {
+  .header-inner { min-height: 72px; gap: 18px; }
+  .main-nav { gap: clamp(12px, 1.25vw, 20px); }
+  .hero-copy .eyebrow { margin-bottom: 16px; }
+  .hero-intro { margin-top: 18px; }
+  .hero-actions { gap: 10px; margin-top: 22px; }
+  .hero-primary, .text-action { min-height: 50px; padding-inline: 17px; }
+  .hero-note { margin-top: 14px; }
+  .hero-portrait-picture img { object-position: 50% 18%; }
+  .hero-quote { top: 52px; right: 22px; width: 144px; padding: 12px; background: rgba(250,246,238,.82); border-radius: 2px; }
+  .hero-quote p { font-size: 24px; }
+  .hero-quote::after { inset: -16px -14px -20px; }
+  .benefits { padding-block: 26px; }
+  .benefits article { gap: 12px; padding-inline: 18px; }
+  .benefit-icon { width: 48px; height: 48px; flex-basis: 48px; }
+  .benefits h2 { font-size: 22px; }
+  .about-grid { grid-template-columns: minmax(0,.9fr) minmax(0,1.18fr) minmax(90px,.3fr); }
+  .about-handwritten { font-size: 24px; }
+  .credentials-inner { padding-block: 26px; gap: 22px; grid-template-columns: 140px minmax(0,1fr); }
+  .credentials-grid article { padding-inline: 20px; }
+  .topics h3 { margin-inline: 22px; }
+  .topics article p, .topic-link { margin-inline: 22px; }
+  .care > .site-shell { gap: 30px; }
+  .care-grid { gap: 18px; }
+  .care-card { display: flex; }
+  .care-card figure { min-height: 0; height: auto; aspect-ratio: 1.8; }
+  .care-card-copy { padding: 20px; }
+  .final-cta-inner { gap: 40px; }
+  .site-footer { padding-block: 30px; }
+  .footer-inner { gap: 20px; }
+  .footer-nav { gap: 14px; }
+  .footer-meta { gap: 12px; }
+
+}
+
+@media (min-width: 901px) and (max-height: 800px) {
+  :root { --hero-height: 520px; --section-space: 64px; }
+  .header-inner { min-height: 66px; }
+  .hero-copy { padding-block: 26px; }
+  .hero h1 { font-size: clamp(52px, 4.35vw, 64px); }
+  .hero-copy .eyebrow { margin-bottom: 14px; }
+  .hero-intro { margin-top: 16px; }
+  .hero-actions { margin-top: 18px; }
+  .hero-note { margin-top: 12px; }
+  .benefits { padding-block: 22px; }
+  .about-photo { height: 470px; }
+}
+
+@media (min-width: 901px) and (max-width: 1279px) {
+  :root { --page-gutter: 40px; --hero-height: 560px; }
+  .header-inner { gap: 12px; }
+  .brand-name { font-size: 23px; }
+  .main-nav { gap: 12px; font-size: 11px; }
+  .button-header { padding-inline: 12px; font-size: 11px; }
+  .hero-grid { grid-template-columns: 50% 50%; }
+  .hero-copy { padding-right: 24px; }
+  .hero h1 { font-size: clamp(49px, 4.65vw, 58px); }
+  .hero-actions { gap: 10px; }
+  .hero-primary, .text-action { padding-inline: 14px; font-size: 12px; }
+  .hero-quote { right: 18px; width: 128px; top: auto; bottom: 24px; }
+  .hero-quote p { font-size: 22px; }
+  .benefits article { padding-inline: 12px; gap: 10px; }
+  .benefits h2 { font-size: 21px; }
+  .benefit-icon { width: 42px; height: 42px; flex-basis: 42px; }
+  .about-grid { grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: 26px 40px; }
+  .about-aside { grid-column: 2; grid-row: 2; max-width: 300px; justify-self: end; }
+  .approach { padding-inline: 0; }
+  .topics-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .care > .site-shell { grid-template-columns: minmax(0,1fr); }
+  .care-head { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
+  .care-head > p { margin: 0; }
+  .care-card { display: grid; grid-template-columns: 40% minmax(0,1fr); }
+  .care-card figure { height: 100%; aspect-ratio: auto; }
+  .footer-inner { justify-content: center; }
+  .footer-meta { justify-content: center; }
+}
+
+/* Clip only non-interactive artwork at the viewport edges, with vertical bleed. */
+.decor-scene { clip-path: inset(-120px 0); }
+.hero-visual { clip-path: inset(-60px 0 -60px -60px); }
+@media (max-width: 900px) {
+  /* Keep these existing ornaments in the section's trailing whitespace. */
+  .approach-foliage { width: 76px; left: auto; right: 12px; bottom: 4px; }
+  .topics-dried { width: 70px; right: auto; left: 10px; bottom: 4px; }
+}
+
+/* V13 — FINAL DESKTOP ORNAMENT ANCHORING
+   Content continues to follow .site-shell. Every edge ornament below is resolved
+   against the full-width section / viewport instead of --container or an
+   ornament gutter. Bleed is expressed as a percentage of the asset itself, so
+   the visible silhouette remains stable from 1280 through 1920. */
+@media (min-width: 901px) {
+  /* Full-width containing block for edge gardens. This deliberately neutralizes
+     the older narrow-gutter coordinate system on desktop only. */
+  .decor-scene .edge-garden {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    overflow: visible;
+  }
+  .decor-scene .edge-left,
+  .decor-scene .edge-right { left: 0; right: 0; }
+
+  /* HERO: left plants originate at x=0; photo blossom originates at the
+     viewport-aligned right edge of the hero visual. */
+  .hero-foliage {
+    left: 0; right: auto;
+    top: clamp(34px, 3.2vw, 62px);
+    width: clamp(205px, 15vw, 330px);
+    transform: translateX(-18%) rotate(-8deg);
+  }
+  .hero-dried {
+    left: 0; right: auto;
+    bottom: clamp(12px, 1.5vw, 28px);
+    width: clamp(175px, 12vw, 250px);
+    transform: translateX(-11%) rotate(9deg);
+  }
+  .hero-photo-blossom {
+    left: auto; right: 0;
+    bottom: clamp(-20px, -1vw, -10px);
+    width: clamp(220px, 17vw, 340px);
+    transform: translateX(20%) rotate(-10deg);
+  }
+  .hero-visual-sprig {
+    left: clamp(6px, .7vw, 14px);
+    bottom: clamp(-4px, .2vw, 4px);
+    width: clamp(96px, 7vw, 136px);
+  }
+
+  /* ABOUT: both botanical masses are true viewport-edge compositions. */
+  .about-foliage {
+    left: 0; right: auto;
+    bottom: clamp(24px, 3vw, 50px);
+    width: clamp(235px, 18vw, 390px);
+    transform: translateX(-16%) rotate(-15deg);
+  }
+  .about-canopy {
+    left: auto; right: 0;
+    top: clamp(18px, 2vw, 34px);
+    width: clamp(245px, 18.5vw, 410px);
+    transform: translateX(16%) rotate(4deg);
+  }
+  .decor-about .vb-as {
+    left: auto;
+    right: clamp(12px, 2vw, 34px);
+    bottom: clamp(46px, 5vw, 78px);
+    width: clamp(70px, 6vw, 108px);
+  }
+  .decor-about::after {
+    left: 0; right: auto;
+    bottom: clamp(12px, 2vw, 28px);
+    width: clamp(270px, 23vw, 420px);
+    height: clamp(190px, 16vw, 290px);
+    transform: translateX(-8%) rotate(17deg);
+  }
+
+  /* APPROACH: right botanical + left line-art, each owned by its page edge. */
+  .approach-foliage {
+    left: auto; right: 0;
+    bottom: clamp(20px, 2.4vw, 36px);
+    width: clamp(205px, 15vw, 300px);
+    transform: translateX(16%) rotate(-13deg);
+  }
+  .decor-approach .vb-tl {
+    left: 0; right: auto;
+    top: clamp(4px, 1vw, 16px);
+    width: clamp(380px, 34vw, 620px);
+    transform: translateX(-10%);
+  }
+  .decor-approach::after {
+    left: auto; right: 0;
+    top: clamp(28px, 3vw, 46px);
+    width: clamp(250px, 24vw, 360px);
+    height: clamp(300px, 29vw, 430px);
+    transform: translateX(10%) rotate(25deg);
+  }
+
+  /* TOPICS: top-right living branch, bottom-left dry branch; line art stays
+     close to the corresponding page edge instead of the card grid. */
+  .topics-canopy {
+    left: auto; right: 0;
+    top: clamp(54px, 5vw, 82px);
+    width: clamp(210px, 15.5vw, 310px);
+    transform: translateX(16%) rotate(13deg);
+  }
+  .topics-dried {
+    left: 0; right: auto;
+    bottom: clamp(22px, 2.6vw, 38px);
+    width: clamp(205px, 15vw, 300px);
+    transform: translateX(-14%) rotate(16deg);
+  }
+  .decor-topics::before {
+    left: 0; right: auto;
+    top: clamp(34px, 4vw, 56px);
+    width: clamp(270px, 22vw, 390px);
+    height: clamp(215px, 18vw, 315px);
+    transform: translateX(-8%) rotate(-15deg);
+  }
+  .decor-topics::after {
+    left: auto; right: 0;
+    bottom: clamp(28px, 3vw, 44px);
+    width: clamp(290px, 24vw, 420px);
+    height: clamp(220px, 18vw, 320px);
+    transform: translateX(12%) rotate(-50deg);
+  }
+
+  /* PROCESS: the foliage starts at the left viewport edge; the supporting
+     topography belongs to the right edge. */
+  .process-foliage {
+    left: 0; right: auto;
+    top: clamp(24px, 2.8vw, 42px);
+    width: clamp(210px, 15.5vw, 310px);
+    transform: translateX(-18%) scaleX(-1) rotate(-22deg);
+  }
+  .decor-process .vb-pt {
+    left: auto; right: 0;
+    bottom: clamp(20px, 2.5vw, 38px);
+    width: clamp(250px, 23vw, 360px);
+    transform: translateX(10%);
+  }
+
+  /* CARE: botanical begins at the left edge, contour work at the right. */
+  .care-foliage {
+    left: 0; right: auto;
+    top: clamp(30px, 4vw, 56px);
+    width: clamp(220px, 16vw, 335px);
+    transform: translateX(-16%) rotate(-12deg);
+  }
+  .decor-care::after {
+    left: auto; right: 0;
+    bottom: clamp(24px, 3vw, 42px);
+    width: clamp(285px, 23vw, 410px);
+    height: clamp(210px, 17vw, 300px);
+    transform: translateX(10%) rotate(190deg);
+  }
+
+  /* FAQ: branch belongs to the right boundary; faint line art to the left. */
+  .faq-foliage {
+    left: auto; right: 0;
+    bottom: clamp(34px, 4vw, 52px);
+    width: clamp(220px, 16vw, 330px);
+    transform: translateX(16%) rotate(-16deg);
+  }
+  .decor-faq::before {
+    left: 0; right: auto;
+    top: clamp(40px, 4vw, 58px);
+    width: clamp(265px, 22vw, 390px);
+    height: clamp(350px, 29vw, 500px);
+    transform: translateX(-10%) rotate(15deg);
+  }
+
+  /* GREEN CTA: all line art is border-owned. No decorative asset uses the
+     content container as its horizontal coordinate system. */
+  .decor-final .vb-fl {
+    left: 0; right: auto;
+    bottom: clamp(20px, 2vw, 34px);
+    width: clamp(245px, 22vw, 380px);
+    transform: translateX(-18%) rotate(-4deg);
+  }
+  .decor-final .vb-frr {
+    left: auto; right: 0;
+    bottom: clamp(18px, 2vw, 32px);
+    width: clamp(245px, 22vw, 380px);
+    transform: translateX(18%) scaleX(-1) rotate(-2deg);
+  }
+  .decor-final .cta-seeds {
+    left: auto;
+    right: clamp(18px, 3vw, 58px);
+    bottom: clamp(-28px, -1.5vw, -14px);
+    width: clamp(118px, 9vw, 165px);
+    transform: translateX(6%) rotate(29deg);
+  }
+}
+
+
+/* V14 — hero width from the hero's own box (no 100vw), blossom anchored to the hero, footer admin link */
+.hero { container-type: inline-size; }
+.hero-photo-blossom--desk { display: none; }
+@media (min-width: 901px) {
+  .hero .hero-grid {
+    --hero-shell-gap: max(0px, calc((100cqw - min(100cqw - var(--page-gutter, 48px) * 2, var(--container, 1240px))) / 2));
+  }
+  .hero .hero-grid .hero-visual {
+    width: calc(100% + var(--hero-shell-gap));
+    margin-right: calc(-1 * var(--hero-shell-gap));
+  }
+  .hero { overflow-x: clip; } /* local: crops the intentional blossom bleed at the hero edge */
+  .hero-photo-blossom--in { display: none; }
+  .hero-photo-blossom--desk {
+    display: block; position: absolute; z-index: 3;
+    left: auto; right: 0; bottom: clamp(-20px, -1vw, -10px);
+    width: clamp(220px, 17vw, 340px);
+    transform: translateX(20%) rotate(-10deg);
+    pointer-events: none;
+  }
+}
+.admin-access-link { color: var(--muted, #6b6b60); opacity: .75; font-size: 11px; padding-block: 10px; text-decoration: none; }
+.admin-access-link:hover, .admin-access-link:focus-visible { opacity: 1; text-decoration: underline; }
+@media (max-width: 900px) { .admin-access-link { font-size: 11px !important; width: 100%; text-align: center; } }
