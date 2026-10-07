@@ -195,14 +195,137 @@ body{padding-bottom:104px}
 .site-footer{padding-bottom:36px}
 .topics article .topic-media img{transform:scale(1.32);transform-origin:50% 100%}
 
-/* Botanical edges: anchored to the viewport edges, kept clear of text */
+/* ==========================================================================
+   Botanical art direction (mobile) — single source of truth for ≤900px.
+   Every ornament is drawn from ONE sprite sheet (assets/botanical-atlas.png):
+     a = golden sprig · b = bay laurel · c = eucalyptus · d = gold line-art leaf
+   and is a TRANSITION ORNAMENT: it lives in the text-free band between two
+   sections (bottom padding of one + top padding of the next), rooted in a page
+   edge, attached to the FOLLOWING section's .decor-scene with a negative `top`
+   so it crosses the seam instead of being sawn off by the next background.
+   Legacy sprites/twigs are retired here; desktop is untouched.
+
+   Hierarchy
+     PRINCIPAL  painted, edge-rooted ........ benefícios→sobre (R) · temas→processo (R)
+     SECONDARY  lighter / line-art ........... abordagem→temas (L) · atendimento→FAQ (L)
+     CLOSING    gold line-art on forest ...... CTA final (diagonal) · footer (R)
+     Hero keeps its photo-anchored blossom; formação, processo and FAQ stay clean —
+     breathing room is part of the composition.
+   Side rhythm: hero L · R · L · R · L · CTA diagonal · footer R
+   ========================================================================== */
 @media(max-width:900px){
-  .about-canopy{display:block;left:auto;right:-72px;top:-18px;width:170px;opacity:.7;transform:rotate(8deg)}
-  .about-foliage{display:block;left:auto;right:-66px;top:auto;bottom:12px;width:170px;opacity:.6;transform:rotate(-12deg)}
-  .decor-about::after{opacity:0}
-  .topics-canopy{display:block;left:auto;right:-62px;top:-14px;width:150px;opacity:.55;transform:rotate(14deg)}
-  .process-foliage{display:block;left:auto;right:-70px;top:-10px;width:160px;opacity:.5}
-  .care-foliage{display:block;left:auto;right:-64px;top:-12px;width:150px;opacity:.5}
-  .vb-fr{right:-70px;bottom:-60px;opacity:.6}
+  /* retire legacy layers: loose sprites, thin twigs, outlines, seed sprig */
+  .decor-scene .edge-garden,
+  .decor-scene .vb,
+  .decor-scene .cta-outline,
+  .decor-scene .cta-seeds,
+  .hero-visual-sprig{display:none!important}
+
+  /* allow seam ornaments a little more vertical bleed than the global 120px */
+  .decor-scene{clip-path:inset(-190px 0)}
+
+  /* shared sprite tile */
+  .decor-about::before,.decor-topics::before,.decor-process::before,.decor-faq::before,
+  .decor-final::before,.decor-final::after{
+    content:'';position:absolute;display:block;height:auto;aspect-ratio:1;
+    right:auto;left:auto;top:auto;bottom:auto;
+    background:url('../assets/botanical-atlas.png') no-repeat;background-size:200% 200%;
+    pointer-events:none;
+  }
+  /* quiet any legacy pseudo layers that earlier sheets still size */
+  .decor-about::after,.decor-approach::before,.decor-approach::after,.decor-topics::after,
+  .decor-care::before,.decor-care::after,.decor-faq::after,.decor-process::after{content:none}
+
+  /* BENEFÍCIOS → SOBRE · principal, right. Laurel rooted in the right edge, rising
+     into the free corner beside the eyebrow; stays clear of the heading. */
+  .decor-about::before{
+    width:236px;right:-98px;top:-44px;
+    background-position:100% 0;transform:rotate(16deg);
+    opacity:.84;filter:saturate(.72);
+  }
+
+  /* ABORDAGEM → TEMAS · secondary, left. Gold line-art lying across the seam
+     like a divider, rooted in the left edge. */
+  .decor-topics::before{
+    width:236px;left:-80px;top:-150px;
+    background-position:100% 100%;transform:rotate(56deg);
+    opacity:.85;filter:saturate(.9) contrast(1.2);
+  }
+
+  /* TEMAS → PROCESSO · principal, right. Eucalyptus fanning in from the right edge. */
+  .decor-process::before{
+    width:196px;right:-70px;top:-112px;
+    background-position:0 100%;transform:rotate(-84deg);
+    opacity:.8;filter:saturate(.72);
+  }
+
+  /* ATENDIMENTO → FAQ · secondary, left. Golden sprig rising out of the left edge. */
+  .decor-faq::before{
+    width:214px;left:-84px;top:-142px;
+    background-position:0 0;transform:rotate(52deg);
+    opacity:.66;filter:saturate(.72);
+  }
+
+  /* CTA FINAL · gold line-art as a diagonal pair framing the heading */
+  .decor-final::before{
+    width:236px;left:-132px;top:-6px;
+    background-position:100% 100%;transform:rotate(-122deg) scaleX(-1);
+    opacity:.34;filter:brightness(.95) saturate(.8);
+  }
+  .decor-final::after{
+    width:260px;right:-126px;bottom:-60px;
+    background-position:100% 100%;transform:rotate(-8deg);
+    opacity:.36;filter:brightness(.95) saturate(.8);
+  }
+
+  /* narrow phones: keep the laurel clear of the heading's last letters */
+  @media(max-width:380px){
+    .decor-about::before{width:196px;right:-84px;top:-36px}
+  }
+
+  /* FOOTER · one line-art branch on the right, beside the nav column */
+  .footer-ornament{
+    display:block;position:absolute;z-index:-1;pointer-events:none;
+    width:210px;aspect-ratio:1;right:-86px;top:96px;
+    background:url('../assets/botanical-atlas.png') no-repeat;background-size:200% 200%;
+    background-position:100% 100%;transform:rotate(-6deg);
+    opacity:.6;filter:contrast(1.15);
+  }
 }
 @media(max-width:900px){.booking-progress,.booking-progress::before,.booking-progress::after{background:transparent}}
+
+/* ==========================================================================
+   V18 — Footer mobile: editorial closing (footer only)
+   ========================================================================== */
+@media(max-width:900px){
+  .site-footer{position:relative;overflow:hidden;padding:46px 0 calc(92px + env(safe-area-inset-bottom,0px));background:#f8f4ec}
+  body{padding-bottom:0}
+  /* soft hand-off from the green CTA: gentle shade + gold hairline with a seed dot */
+  .site-footer::before{content:'';position:absolute;z-index:-1;left:0;right:0;top:0;height:34px;background:linear-gradient(rgba(58,74,50,.10),rgba(58,74,50,0));pointer-events:none}
+  .site-footer::after{content:'';position:absolute;left:50%;top:18px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#b59a67;opacity:.7;box-shadow:-18px 0 0 -1px rgba(181,154,103,.55),18px 0 0 -1px rgba(181,154,103,.55)}
+  .footer-inner{width:calc(100% - 44px);max-width:360px;align-items:center;gap:26px;text-align:center}
+
+  .brand-footer{align-self:center}
+  .brand-footer .brand-mark svg{width:34px;height:38px}
+  .brand-footer .brand-name{font-size:24px}
+  .brand-footer .brand-role{font-size:6.5px}
+
+  /* nav: two balanced columns around a centre hairline */
+  .footer-nav{display:grid;grid-auto-flow:column;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);column-gap:34px;width:100%;max-width:286px;padding:0;font-size:13.5px;
+    background:linear-gradient(rgba(181,154,103,.35),rgba(181,154,103,.35)) center/1px 82% no-repeat}
+  .footer-nav a{min-height:42px;padding-block:6px;display:flex;align-items:center;justify-content:flex-start;text-align:left;color:#4a5a43}
+  .footer-nav a:nth-child(-n+4){justify-content:flex-end;text-align:right}
+
+  /* metadata cluster */
+  .footer-meta{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;max-width:none;font-size:11px;line-height:1.5;color:#6f7064}
+  .footer-meta::before{content:'';width:44px;height:1px;background:rgba(181,154,103,.55);margin-bottom:14px}
+  .social-link[hidden]{display:none}
+  .social-link{width:44px;height:44px}
+  .social-link svg{width:34px;height:34px;padding:7px}
+  .footer-meta>span{margin-top:6px;font-size:11px;line-height:1.55}
+  .admin-access-link{min-height:40px;display:inline-flex;align-items:center;justify-content:center;padding:0 10px;font-size:11px;color:#6f7064;text-decoration:underline;text-decoration-color:rgba(111,112,100,.4);text-underline-offset:3px}
+  .developer-credit{width:auto;padding-block:4px;font-size:10.5px;color:#7c7d71}
+
+  /* botanical as a frame: one quiet corner, bottom-left, clear of text */
+  .footer-ornament{width:150px;right:auto;left:-52px;top:auto;bottom:-6px;transform:rotate(8deg) scaleX(-1);opacity:.4;filter:none}
+}
